@@ -3,7 +3,11 @@
   "private": true,
   "version": "1.0.0",
   "description": "الأصيل موتورز — نظام إدارة محركات السيارات والمواتير",
-  "author": "Al-Aseel Motors",
+  "author": {
+    "name": "Al-Aseel Motors",
+    "email": "info@alasel-motors.com"
+  },
+  "desktopName": "alasel-motors",
   "type": "module",
   "main": "dist-electron/main.js",
   "scripts": {
@@ -62,21 +66,19 @@
       "public/logo.png",
       "package.json"
     ],
-    "extraResources": [
-      {
-        "from": "alasel-954c7-firebase-adminsdk-fbsvc-247d2212b7.json",
-        "to": "firebase-service-account.json",
-        "filter": ["**/*"]
-      }
-    ],
     "linux": {
       "target": [
         { "target": "AppImage", "arch": ["x64"] },
         { "target": "deb", "arch": ["x64"] }
       ],
       "category": "Office",
-      "synopsis": "نظام إدارة محركات السيارات",
-      "description": "الأصيل موتورز — نظام متكامل لإدارة المواتير والمكن"
+      "synopsis": "Al-Aseel Motors Management System",
+      "description": "Al-Aseel Motors — Car engines inventory and sales management",
+      "maintainer": "Al-Aseel Motors <info@alasel-motors.com>",
+      "desktop": {
+        "Name": "Al-Aseel Motors"
+      },
+      "syncDesktopName": true
     },
     "win": {
       "target": [
