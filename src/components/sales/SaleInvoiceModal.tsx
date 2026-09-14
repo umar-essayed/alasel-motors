@@ -57,10 +57,16 @@ export const SaleInvoiceModal: React.FC<SaleInvoiceModalProps> = ({
         >
           {/* Shop Header */}
           <div className="border-b-2 border-slate-800 pb-5 mb-5 flex justify-between items-start">
-            <div>
-              <h1 className="font-display text-2xl font-bold text-slate-900 tracking-tight">
-                {settings.shopName}
-              </h1>
+            <div className="flex items-start gap-3">
+              <img
+                src="/logo.png"
+                alt="شعار الأصيل"
+                className="w-14 h-14 object-contain shrink-0"
+              />
+              <div>
+                <h1 className="font-display text-2xl font-bold text-slate-900 tracking-tight">
+                  {settings.shopName}
+                </h1>
               <p className="text-xs text-slate-600 font-medium mt-1">
                 إدارة: {settings.shopOwner} • {settings.commercialRecord}
               </p>
@@ -75,6 +81,7 @@ export const SaleInvoiceModal: React.FC<SaleInvoiceModalProps> = ({
                 </span>
               </div>
             </div>
+          </div>
 
             <div className="text-left">
               <span className="inline-block bg-slate-900 text-white font-mono font-bold text-sm px-3 py-1 rounded-lg">

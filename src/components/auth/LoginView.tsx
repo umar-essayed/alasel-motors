@@ -82,8 +82,12 @@ export const LoginView: React.FC = () => {
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center items-center px-4 py-8 relative overflow-hidden">
       {/* Subtle clean background header */}
       <div className="w-full max-w-2xl mx-auto text-center mb-8">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-slate-900 border border-slate-800 shadow-md mb-4 text-amber-400">
-          <Wrench className="w-8 h-8" />
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-slate-900 border border-slate-800 shadow-md mb-4 p-2">
+          <img
+            src="/logo.png"
+            alt="الأصيل موتورز"
+            className="w-full h-full object-contain"
+          />
         </div>
         <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2">
           الأصيل موتورز

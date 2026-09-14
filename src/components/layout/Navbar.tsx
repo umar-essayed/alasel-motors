@@ -89,9 +89,11 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center justify-between h-16 gap-3">
           {/* Logo & Brand */}
           <div className="flex items-center gap-3 shrink-0">
-            <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-amber-400 shadow-xs">
-              <Wrench className="w-5 h-5" />
-            </div>
+            <img
+              src="/logo.png"
+              alt="الأصيل موتورز"
+              className="w-10 h-10 object-contain rounded-xl shadow-xs"
+            />
             <div>
               <span className="font-display font-bold text-lg sm:text-xl text-slate-900 tracking-tight block leading-tight">
                 الأصيل موتورز
