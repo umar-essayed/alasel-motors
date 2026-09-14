@@ -1,0 +1,108 @@
+name: Build Electron App
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  # ─── Build Linux ─────────────────────────────────────────────────────────────
+  build-linux:
+    name: Build Linux (AppImage + deb)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Write Firebase service account (from secret)
+        run: |
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > alasel-954c7-firebase-adminsdk-fbsvc-247d2212b7.json
+
+      - name: Build Vite (React app)
+        run: npm run build
+
+      - name: Compile Electron TypeScript
+        run: npm run build:electron
+
+      - name: Build Electron Linux packages
+        run: npx electron-builder --linux
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Linux artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: alasel-motors-linux
+          path: |
+            release/*.AppImage
+            release/*.deb
+          retention-days: 30
+
+      - name: Upload to release (if release event)
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release/*.AppImage
+            release/*.deb
+
+  # ─── Build Windows ───────────────────────────────────────────────────────────
+  build-windows:
+    name: Build Windows (NSIS Installer)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Write Firebase service account (from secret)
+        shell: bash
+        run: |
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > alasel-954c7-firebase-adminsdk-fbsvc-247d2212b7.json
+
+      - name: Build Vite (React app)
+        run: npm run build
+
+      - name: Compile Electron TypeScript
+        run: npm run build:electron
+
+      - name: Build Electron Windows installer
+        run: npx electron-builder --win
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: alasel-motors-windows
+          path: release/*.exe
+          retention-days: 30
+
+      - name: Upload to release (if release event)
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/*.exe

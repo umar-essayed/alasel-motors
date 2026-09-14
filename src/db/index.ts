@@ -12,16 +12,7 @@ import {
   ShopSettings,
   FirebaseConfig,
 } from '../types';
-import {
-  defaultAccounts,
-  demoClearanceDocs,
-  defaultCustomers,
-  defaultEngines,
-  defaultSalesInvoices,
-  defaultSettings,
-  defaultSuppliers,
-  defaultTransactions,
-} from './seedData';
+import { defaultAccounts, defaultSettings } from './seedData';
 
 export interface AppSettingsRecord {
   id: string;
@@ -58,26 +49,41 @@ export class AlAselDatabase extends Dexie {
       transactions: 'id, type, category, date, createdAt',
       appSettings: 'id',
     });
+
+    // Version 2: production migration — remove old demo accounts & data
+    this.version(2).upgrade(async (tx) => {
+      // Remove all old demo accounts
+      await tx.table('accounts').clear();
+      // Seed only the 2 production accounts
+      await tx.table('accounts').bulkAdd(defaultAccounts as Account[]);
+      // Clear any demo engines/customers/suppliers/invoices/transactions
+      await tx.table('engines').clear();
+      await tx.table('clearanceDocs').clear();
+      await tx.table('suppliers').clear();
+      await tx.table('customers').clear();
+      await tx.table('salesInvoices').clear();
+      await tx.table('supplierInvoices').clear();
+      await tx.table('payments').clear();
+      await tx.table('transactions').clear();
+      console.log('Al-Aseel Motors: Database upgraded to v2 — demo data cleared.');
+    });
   }
 
-  // Seed default data if empty
+  // Seed default data if empty (first install)
   async seedInitialData() {
     const accountsCount = await this.accounts.count();
     if (accountsCount === 0) {
-      await this.accounts.bulkAdd(defaultAccounts);
-      await this.clearanceDocs.bulkAdd(demoClearanceDocs);
-      await this.suppliers.bulkAdd(defaultSuppliers);
-      await this.customers.bulkAdd(defaultCustomers);
-      await this.engines.bulkAdd(defaultEngines);
-      await this.salesInvoices.bulkAdd(defaultSalesInvoices);
-      await this.transactions.bulkAdd(defaultTransactions);
+      await this.accounts.bulkAdd(defaultAccounts as Account[]);
+    }
+    const settingsCount = await this.appSettings.count();
+    if (settingsCount === 0) {
       await this.appSettings.add({
         id: 'main_settings',
         settings: defaultSettings,
         cloudSyncEnabled: false,
       });
-      console.log('Al-Aseel Motors: IndexedDB seeded with initial demo data successfully.');
     }
+    console.log('Al-Aseel Motors: Production database initialized.');
   }
 }
 

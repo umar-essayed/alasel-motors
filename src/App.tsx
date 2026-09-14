@@ -87,8 +87,8 @@ const MainApp: React.FC = () => {
         }}
       />
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col md:flex-row max-w-7xl w-full mx-auto">
+      {/* Main Content Area: 100% Full Width */}
+      <div className="flex-1 flex flex-col md:flex-row w-full">
         {/* Sidebar */}
         <Sidebar
           activeTab={activeTab}
@@ -102,7 +102,7 @@ const MainApp: React.FC = () => {
         />
 
         {/* Dynamic Tab Content */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-7 min-w-0">
+        <main className="flex-1 p-5 sm:p-6 lg:p-8 min-w-0 w-full">
           {activeTab === 'pos' && (
             <PointOfSaleView
               settings={settings}

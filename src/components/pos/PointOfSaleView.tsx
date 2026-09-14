@@ -208,32 +208,32 @@ export const PointOfSaleView: React.FC<PointOfSaleViewProps> = ({
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-      {/* LEFT: Engine Catalog / Available Stock (7 cols) */}
-      <div className="lg:col-span-7 space-y-4">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start w-full">
+      {/* LEFT: Engine Catalog / Available Stock (8 cols on wide) */}
+      <div className="lg:col-span-8 space-y-4">
         {/* Search & Brands Strip */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs space-y-3">
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-3">
           <div className="relative">
-            <Search className="w-4 h-4 absolute right-3 top-3 text-slate-400" />
+            <Search className="w-5 h-5 absolute right-3.5 top-3 text-slate-400" />
             <input
               type="text"
-              placeholder="ابحث برقم المكنة (G4FC...) أو الموديل (إلنترا، سيراتو...)"
+              placeholder="ابحث برقم المكنة المدموغ (G4FC...) أو الموديل (إلنترا، سيراتو...)"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-3 pr-9 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-slate-900"
+              className="w-full pl-4 pr-11 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm sm:text-base text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-slate-900"
             />
           </div>
 
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1">
             {brands.map((b) => (
               <button
                 key={b}
                 type="button"
                 onClick={() => setSelectedBrand(b)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-colors cursor-pointer ${
                   selectedBrand === b
-                    ? 'bg-slate-900 text-white'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                 }`}
               >
                 {b}
@@ -242,8 +242,8 @@ export const PointOfSaleView: React.FC<PointOfSaleViewProps> = ({
           </div>
         </div>
 
-        {/* Engine Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[640px] overflow-y-auto pr-1">
+        {/* Engine Grid - 3 cols on xl desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 max-h-[720px] overflow-y-auto pr-1">
           {filteredEngines.map((eng) => {
             const isSelected = selectedEngine?.id === eng.id;
 
@@ -292,12 +292,12 @@ export const PointOfSaleView: React.FC<PointOfSaleViewProps> = ({
         </div>
       </div>
 
-      {/* RIGHT: Active Register / Checkout Panel (5 cols) */}
-      <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-5 sticky top-20">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-          <div className="flex items-center gap-2">
+      {/* RIGHT: Active Register / Checkout Panel (4 cols on wide) */}
+      <div className="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-5 sticky top-24">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div className="flex items-center gap-2.5">
             <ShoppingCart className="w-5 h-5 text-slate-800" />
-            <h3 className="font-bold text-base text-slate-900">شاشة البيع (كاشير)</h3>
+            <h3 className="font-bold text-lg text-slate-900">شاشة البيع (كاشير)</h3>
           </div>
           {selectedEngine && (
             <button

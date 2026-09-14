@@ -164,19 +164,19 @@ export const EnginesList: React.FC<EnginesListProps> = ({
       </div>
 
       {/* Clean Engines Table */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs w-full">
         <div className="overflow-x-auto">
-          <table className="w-full text-right text-xs">
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+          <table className="w-full text-right text-sm">
+            <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold">
               <tr>
-                <th className="py-3 px-4">رقم المكنة المدموغ</th>
-                <th className="py-3 px-4">الماركة والموديل</th>
-                <th className="py-3 px-4">المواصفات والفتيس</th>
-                <th className="py-3 px-4 text-left">سعر التكلفة</th>
-                <th className="py-3 px-4 text-left">سعر البيع</th>
-                <th className="py-3 px-4 text-center">ورق الإفراج</th>
-                <th className="py-3 px-4 text-center">الحالة</th>
-                <th className="py-3 px-4 text-center">إجراءات</th>
+                <th className="py-4 px-5">رقم المكنة المدموغ</th>
+                <th className="py-4 px-5">الماركة والموديل</th>
+                <th className="py-4 px-5">المواصفات والفتيس</th>
+                <th className="py-4 px-5 text-left">سعر التكلفة</th>
+                <th className="py-4 px-5 text-left">سعر البيع</th>
+                <th className="py-4 px-5 text-center">ورق الإفراج</th>
+                <th className="py-4 px-5 text-center">الحالة</th>
+                <th className="py-4 px-5 text-center">إجراءات</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -186,37 +186,37 @@ export const EnginesList: React.FC<EnginesListProps> = ({
                 return (
                   <tr key={eng.id} className="hover:bg-slate-50/70 transition-colors">
                     {/* Engine Number */}
-                    <td className="py-3.5 px-4">
-                      <span className="font-mono font-bold text-slate-900 text-sm block select-all">
+                    <td className="py-4 px-5">
+                      <span className="font-mono font-extrabold text-slate-900 text-sm block select-all">
                         {eng.engineNumber}
                       </span>
-                      <span className="text-[10px] text-slate-400">{eng.modelYear || 'موديل قياسي'}</span>
+                      <span className="text-xs text-slate-400">{eng.modelYear || 'موديل قياسي'}</span>
                     </td>
 
                     {/* Brand & Model */}
-                    <td className="py-3.5 px-4">
-                      <span className="font-bold text-slate-900 block">{eng.carBrand}</span>
-                      <span className="text-slate-600">{eng.carModel}</span>
+                    <td className="py-4 px-5">
+                      <span className="font-bold text-slate-900 text-sm block">{eng.carBrand}</span>
+                      <span className="text-slate-600 text-xs">{eng.carModel}</span>
                     </td>
 
                     {/* Specs */}
-                    <td className="py-3.5 px-4 text-slate-600">
-                      <span>{eng.engineCapacity || '1600cc'}</span>
-                      <span className="text-slate-400 block text-[11px]">{eng.transmissionType}</span>
+                    <td className="py-4 px-5 text-slate-600 text-xs">
+                      <span className="font-semibold text-slate-700">{eng.engineCapacity || '1600cc'}</span>
+                      <span className="text-slate-400 block text-xs">{eng.transmissionType}</span>
                     </td>
 
                     {/* Wholesale Cost */}
-                    <td className="py-3.5 px-4 text-left font-mono text-slate-700 font-semibold">
+                    <td className="py-4 px-5 text-left font-mono text-slate-700 font-semibold text-sm">
                       {(eng.costPrice + eng.additionalCost).toLocaleString('en-US')} ج.م
                     </td>
 
                     {/* Selling Price */}
-                    <td className="py-3.5 px-4 text-left font-mono font-bold text-slate-900 text-sm">
+                    <td className="py-4 px-5 text-left font-mono font-extrabold text-slate-900 text-base">
                       {eng.sellingPrice.toLocaleString('en-US')} ج.م
                     </td>
 
                     {/* Customs Clearance Doc Button */}
-                    <td className="py-3.5 px-4 text-center">
+                    <td className="py-4 px-5 text-center">
                       {eng.hasClearanceDoc ? (
                         <button
                           type="button"
