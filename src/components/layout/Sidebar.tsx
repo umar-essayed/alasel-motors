@@ -7,16 +7,20 @@ import {
   Truck,
   WalletCards,
   CloudSync,
-  FileCheck2,
+  ShoppingCart,
+  BarChart3,
+  Shield,
 } from 'lucide-react';
 
 export type TabType =
+  | 'pos'
   | 'dashboard'
   | 'engines'
   | 'sales'
   | 'customers'
   | 'suppliers'
   | 'treasury'
+  | 'analytics'
   | 'sync';
 
 interface SidebarProps {
@@ -24,6 +28,7 @@ interface SidebarProps {
   setActiveTab: (tab: TabType) => void;
   availableEnginesCount: number;
   unpaidCustomersCount: number;
+  onOpenAccountsModal: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -31,120 +36,107 @@ export const Sidebar: React.FC<SidebarProps> = ({
   setActiveTab,
   availableEnginesCount,
   unpaidCustomersCount,
+  onOpenAccountsModal,
 }) => {
   const navItems = [
     {
+      id: 'pos' as TabType,
+      label: 'شاشة البيع (POS)',
+      icon: ShoppingCart,
+      highlight: true,
+    },
+    {
       id: 'dashboard' as TabType,
-      label: 'لوحة التحكم',
-      sublabel: 'نظرة عامة وإحصائيات',
+      label: 'الرئيسية',
       icon: LayoutDashboard,
     },
     {
       id: 'engines' as TabType,
-      label: 'مكن ومواتير السيارات',
-      sublabel: 'المخزن والإفراج الجمركي',
+      label: 'مخزن المواتير',
       icon: Cpu,
-      badge: availableEnginesCount > 0 ? `${availableEnginesCount} متاح` : undefined,
-      badgeColor: 'bg-emerald-100 text-emerald-800',
+      badge: availableEnginesCount > 0 ? String(availableEnginesCount) : undefined,
     },
     {
       id: 'sales' as TabType,
-      label: 'فواتير المبيعات',
-      sublabel: 'البيع الكاش والآجل والضمان',
+      label: 'فواتير البيع',
       icon: Receipt,
     },
     {
       id: 'customers' as TabType,
       label: 'العملاء والآجل',
-      sublabel: 'سندات القبض وكشف الحساب',
       icon: Users,
-      badge: unpaidCustomersCount > 0 ? `${unpaidCustomersCount} عليهم آجل` : undefined,
-      badgeColor: 'bg-amber-100 text-amber-900',
+      badge: unpaidCustomersCount > 0 ? String(unpaidCustomersCount) : undefined,
     },
     {
       id: 'suppliers' as TabType,
-      label: 'الموردين والمشتريات',
-      sublabel: 'فواتير الوارد والمستحقات',
+      label: 'الموردين',
       icon: Truck,
     },
     {
       id: 'treasury' as TabType,
-      label: 'الخزينة والأرباح',
-      sublabel: 'حركة النقدية وصافي الربح',
+      label: 'الخزينة',
       icon: WalletCards,
+    },
+    {
+      id: 'analytics' as TabType,
+      label: 'التحليلات والمؤشرات',
+      icon: BarChart3,
     },
     {
       id: 'sync' as TabType,
       label: 'المزامنة السحابية',
-      sublabel: 'Firebase والنسخ الاحتياطي',
       icon: CloudSync,
     },
   ];
 
   return (
-    <aside className="w-full md:w-64 bg-white border-l border-slate-200 shrink-0 flex flex-col justify-between p-3 sm:p-4">
+    <aside className="w-full md:w-56 bg-white border-l border-slate-200 shrink-0 p-3 flex flex-col justify-between">
       <div className="space-y-1">
-        <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-          الأقسام الرئيسية
-        </div>
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = activeTab === item.id;
 
-        <nav className="space-y-1">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => setActiveTab(item.id)}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                isActive
+                  ? 'bg-slate-900 text-white shadow-xs'
+                  : item.highlight
+                  ? 'bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-200'
+                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+              }`}
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-amber-400' : ''}`} />
+                <span className="truncate">{item.label}</span>
+              </div>
 
-            return (
-              <button
-                key={item.id}
-                onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-colors text-right cursor-pointer ${
-                  isActive
-                    ? 'bg-slate-900 text-white shadow-xs'
-                    : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
-                }`}
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <Icon
-                    className={`w-5 h-5 shrink-0 ${
-                      isActive ? 'text-amber-400' : 'text-slate-500'
-                    }`}
-                  />
-                  <div className="truncate text-right">
-                    <div className="font-semibold leading-tight">{item.label}</div>
-                    <div
-                      className={`text-[11px] truncate leading-tight mt-0.5 ${
-                        isActive ? 'text-slate-300' : 'text-slate-400'
-                      }`}
-                    >
-                      {item.sublabel}
-                    </div>
-                  </div>
-                </div>
-
-                {item.badge && (
-                  <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${
-                      isActive ? 'bg-amber-400 text-slate-950' : item.badgeColor
-                    }`}
-                  >
-                    {item.badge}
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </nav>
+              {item.badge && (
+                <span
+                  className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold ${
+                    isActive ? 'bg-amber-400 text-slate-900' : 'bg-slate-100 text-slate-600'
+                  }`}
+                >
+                  {item.badge}
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Footer Info Box */}
-      <div className="mt-6 pt-4 border-t border-slate-200 px-2 text-xs text-slate-500">
-        <div className="flex items-center gap-1.5 font-semibold text-slate-700 mb-1">
-          <FileCheck2 className="w-4 h-4 text-emerald-600" />
-          <span>قاعدة بيانات محلية Offline-First</span>
-        </div>
-        <p className="text-[11px] text-slate-400 leading-relaxed">
-          جميع الصور وأرقام المحركات مخزنة على جهازك بسرعة فائقة.
-        </p>
+      {/* Accounts & Staff button */}
+      <div className="pt-3 border-t border-slate-100">
+        <button
+          type="button"
+          onClick={onOpenAccountsModal}
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
+        >
+          <Shield className="w-4 h-4 text-slate-400" />
+          <span>إدارة الحسابات والـ PIN</span>
+        </button>
       </div>
     </aside>
   );

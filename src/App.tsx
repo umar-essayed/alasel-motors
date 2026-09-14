@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { LoginView } from './components/auth/LoginView';
 import { Navbar } from './components/layout/Navbar';
 import { Sidebar, TabType } from './components/layout/Sidebar';
+import { PointOfSaleView } from './components/pos/PointOfSaleView';
 import { DashboardOverview } from './components/dashboard/DashboardOverview';
 import { EnginesList } from './components/engines/EnginesList';
 import { EngineFormModal } from './components/engines/EngineFormModal';
@@ -12,6 +13,8 @@ import { SaleInvoiceModal } from './components/sales/SaleInvoiceModal';
 import { CustomersList } from './components/customers/CustomersList';
 import { SuppliersList } from './components/suppliers/SuppliersList';
 import { TreasuryView } from './components/treasury/TreasuryView';
+import { AnalyticsChartsView } from './components/analytics/AnalyticsChartsView';
+import { AccountsManagementModal } from './components/accounts/AccountsManagementModal';
 import { CloudSyncSettingsModal } from './components/sync/CloudSyncSettingsModal';
 import { db } from './db';
 import { defaultSettings } from './db/seedData';
@@ -20,22 +23,21 @@ import { useLiveQuery } from 'dexie-react-hooks';
 
 const MainApp: React.FC = () => {
   const { currentAccount, isLoading } = useAuth();
-  const [activeTab, setActiveTab] = useState<TabType>('dashboard');
+  const [activeTab, setActiveTab] = useState<TabType>('pos'); // Default to POS for instant sales!
   const [searchQuery, setSearchQuery] = useState('');
 
-  // App Settings
   const [settings, setSettings] = useState<ShopSettings>(defaultSettings);
 
-  // Global Modals
+  // Modals
   const [isNewEngineModalOpen, setIsNewEngineModalOpen] = useState(false);
   const [isSaleModalOpen, setIsSaleModalOpen] = useState(false);
   const [engineToSell, setEngineToSell] = useState<Engine | null>(null);
   const [printedInvoice, setPrintedInvoice] = useState<SalesInvoice | null>(null);
   const [isSyncSettingsOpen, setIsSyncSettingsOpen] = useState(false);
+  const [isAccountsModalOpen, setIsAccountsModalOpen] = useState(false);
 
-  // Live queries for sidebar badge counts
   const availableEngines = useLiveQuery(() => db.engines.where('status').equals('available').toArray()) || [];
-  const customersWithDebt = useLiveQuery(() => db.customers.filter(c => c.balance > 0).toArray()) || [];
+  const customersWithDebt = useLiveQuery(() => db.customers.filter((c) => c.balance > 0).toArray()) || [];
 
   useEffect(() => {
     db.appSettings.get('main_settings').then((rec) => {
@@ -48,13 +50,12 @@ const MainApp: React.FC = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center font-sans">
-        <div className="w-10 h-10 border-3 border-amber-400 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-slate-400 text-sm font-display">الأصيل موتورز • تحميل النظام...</p>
+        <div className="w-8 h-8 border-2 border-amber-400 border-t-transparent rounded-full animate-spin mb-3" />
+        <p className="text-slate-400 text-xs font-display">الأصيل موتورز • تحميل النظام...</p>
       </div>
     );
   }
 
-  // If not logged in with account PIN, show clean LoginView
   if (!currentAccount) {
     return <LoginView />;
   }
@@ -76,10 +77,11 @@ const MainApp: React.FC = () => {
       <Navbar
         onOpenSyncSettings={() => setIsSyncSettingsOpen(true)}
         onOpenNewEngineModal={() => setIsNewEngineModalOpen(true)}
+        onOpenPos={() => setActiveTab('pos')}
         searchQuery={searchQuery}
         onQuickSearch={(query) => {
           setSearchQuery(query);
-          if (query && activeTab !== 'engines') {
+          if (query && activeTab !== 'engines' && activeTab !== 'pos') {
             setActiveTab('engines');
           }
         }}
@@ -91,26 +93,27 @@ const MainApp: React.FC = () => {
         <Sidebar
           activeTab={activeTab}
           setActiveTab={(tab) => {
-            if (tab === 'sync') {
-              setIsSyncSettingsOpen(true);
-            } else {
-              setActiveTab(tab);
-            }
+            if (tab === 'sync') setIsSyncSettingsOpen(true);
+            else setActiveTab(tab);
           }}
           availableEnginesCount={availableEngines.length}
           unpaidCustomersCount={customersWithDebt.length}
+          onOpenAccountsModal={() => setIsAccountsModalOpen(true)}
         />
 
         {/* Dynamic Tab Content */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 min-w-0">
+        <main className="flex-1 p-4 sm:p-6 lg:p-7 min-w-0">
+          {activeTab === 'pos' && (
+            <PointOfSaleView
+              settings={settings}
+              onInvoiceCreated={(inv) => setPrintedInvoice(inv)}
+            />
+          )}
+
           {activeTab === 'dashboard' && (
             <DashboardOverview
               onNavigateTab={setActiveTab}
               onOpenNewEngineModal={() => setIsNewEngineModalOpen(true)}
-              onOpenSaleModal={() => {
-                setEngineToSell(null);
-                setIsSaleModalOpen(true);
-              }}
             />
           )}
 
@@ -121,37 +124,26 @@ const MainApp: React.FC = () => {
             />
           )}
 
-          {activeTab === 'sales' && (
-            <SalesList settings={settings} />
-          )}
+          {activeTab === 'sales' && <SalesList settings={settings} />}
 
-          {activeTab === 'customers' && (
-            <CustomersList settings={settings} />
-          )}
+          {activeTab === 'customers' && <CustomersList settings={settings} />}
 
-          {activeTab === 'suppliers' && (
-            <SuppliersList settings={settings} />
-          )}
+          {activeTab === 'suppliers' && <SuppliersList settings={settings} />}
 
-          {activeTab === 'treasury' && (
-            <TreasuryView />
-          )}
+          {activeTab === 'treasury' && <TreasuryView />}
+
+          {activeTab === 'analytics' && <AnalyticsChartsView />}
         </main>
       </div>
 
-      {/* GLOBAL MODALS */}
-
-      {/* Add New Engine Modal */}
+      {/* MODALS */}
       <EngineFormModal
         isOpen={isNewEngineModalOpen}
         engine={null}
         onClose={() => setIsNewEngineModalOpen(false)}
-        onSaved={() => {
-          // auto updated by useLiveQuery
-        }}
+        onSaved={() => {}}
       />
 
-      {/* Create Sale Modal */}
       <CreateSaleModal
         isOpen={isSaleModalOpen}
         initialEngine={engineToSell}
@@ -163,7 +155,6 @@ const MainApp: React.FC = () => {
         onSaleCreated={handleSaleSuccess}
       />
 
-      {/* Printable Invoice Modal */}
       {printedInvoice && (
         <SaleInvoiceModal
           invoice={printedInvoice}
@@ -172,10 +163,14 @@ const MainApp: React.FC = () => {
         />
       )}
 
-      {/* Firebase Cloud Sync & Backup Modal */}
       <CloudSyncSettingsModal
         isOpen={isSyncSettingsOpen}
         onClose={() => setIsSyncSettingsOpen(false)}
+      />
+
+      <AccountsManagementModal
+        isOpen={isAccountsModalOpen}
+        onClose={() => setIsAccountsModalOpen(false)}
       />
     </div>
   );

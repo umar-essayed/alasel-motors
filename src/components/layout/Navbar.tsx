@@ -2,20 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { syncService, SyncStatus } from '../../services/syncService';
 import {
-  Cloud,
   CloudCheck,
   CloudOff,
   RefreshCw,
   LogOut,
-  PlusCircle,
-  Wrench,
+  Plus,
   Search,
-  User,
+  ShoppingCart,
 } from 'lucide-react';
 
 interface NavbarProps {
   onOpenSyncSettings: () => void;
   onOpenNewEngineModal: () => void;
+  onOpenPos: () => void;
   onQuickSearch: (query: string) => void;
   searchQuery: string;
 }
@@ -23,6 +22,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenSyncSettings,
   onOpenNewEngineModal,
+  onOpenPos,
   onQuickSearch,
   searchQuery,
 }) => {
@@ -51,11 +51,10 @@ export const Navbar: React.FC<NavbarProps> = ({
       return (
         <button
           onClick={onOpenSyncSettings}
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200 cursor-pointer hover:bg-blue-100 transition-colors"
-          title="جاري المزامنة مع سحابة Firebase"
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 cursor-pointer"
         >
           <RefreshCw className="w-3.5 h-3.5 animate-spin text-blue-600" />
-          <span className="hidden sm:inline">جاري المزامنة...</span>
+          <span className="hidden md:inline">مزامنة...</span>
         </button>
       );
     }
@@ -63,116 +62,98 @@ export const Navbar: React.FC<NavbarProps> = ({
       return (
         <button
           onClick={onOpenSyncSettings}
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-pointer hover:bg-emerald-100 transition-colors"
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-pointer"
           title={syncStatus.message}
         >
           <CloudCheck className="w-3.5 h-3.5 text-emerald-600" />
-          <span className="hidden sm:inline">سحابي متصل</span>
+          <span className="hidden md:inline">سحابي</span>
         </button>
       );
     }
     return (
       <button
         onClick={onOpenSyncSettings}
-        className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 text-slate-700 border border-slate-300 cursor-pointer hover:bg-slate-200 transition-colors"
-        title="يعمل محلياً في المتصفح Offline-First عبر IndexedDB"
+        className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200 cursor-pointer"
       >
         <CloudOff className="w-3.5 h-3.5 text-slate-500" />
-        <span className="hidden sm:inline">محلي (Offline)</span>
+        <span className="hidden md:inline">أوفلاين</span>
       </button>
     );
   };
 
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 gap-3">
-          {/* Logo & Brand */}
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Logo & Shop Name */}
+          <div className="flex items-center gap-2.5 shrink-0">
             <img
               src="/logo.png"
               alt="الأصيل موتورز"
-              className="w-10 h-10 object-contain rounded-xl shadow-xs"
+              className="w-10 h-10 object-contain rounded-xl"
             />
             <div>
-              <span className="font-display font-bold text-lg sm:text-xl text-slate-900 tracking-tight block leading-tight">
+              <span className="font-display font-bold text-lg text-slate-900 leading-none block">
                 الأصيل موتورز
               </span>
-              <span className="text-[11px] text-slate-500 hidden sm:block">
+              <span className="text-[10px] text-slate-400 block mt-0.5">
                 مواتير ومكن سيارات استيراد
               </span>
             </div>
           </div>
 
-          {/* Search Box */}
-          <div className="flex-1 max-w-md mx-2">
+          {/* Quick Search */}
+          <div className="flex-1 max-w-sm mx-2">
             <div className="relative">
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
-                <Search className="w-4 h-4" />
-              </div>
+              <Search className="w-3.5 h-3.5 absolute right-3 top-2.5 text-slate-400" />
               <input
                 type="text"
-                placeholder="ابحث برقم المكنة، الماركة (إلنترا، سيراتو)، أو العميل..."
+                placeholder="بحث برقم المكنة أو الموديل..."
                 value={searchQuery}
                 onChange={(e) => onQuickSearch(e.target.value)}
-                className="w-full pl-3 pr-9 py-1.5 bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-300 focus:border-slate-800 rounded-lg text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-800 transition-colors"
+                className="w-full pl-3 pr-8 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none"
               />
-              {searchQuery && (
-                <button
-                  onClick={() => onQuickSearch('')}
-                  className="absolute inset-y-0 left-0 pl-2.5 flex items-center text-xs text-slate-400 hover:text-slate-600"
-                >
-                  مسح
-                </button>
-              )}
             </div>
           </div>
 
-          {/* Right Action Icons & User */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Quick Add Engine Button */}
+          {/* Right Action Buttons & User */}
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Quick POS button */}
+            <button
+              type="button"
+              onClick={onOpenPos}
+              className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition-colors cursor-pointer shadow-xs"
+            >
+              <ShoppingCart className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden sm:inline">شاشة البيع</span>
+            </button>
+
+            {/* Quick Add Engine */}
             <button
               type="button"
               onClick={onOpenNewEngineModal}
-              className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold px-3 py-1.5 rounded-lg shadow-xs transition-colors cursor-pointer"
+              className="flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold px-2.5 py-1.5 rounded-xl border border-slate-200 transition-colors cursor-pointer"
             >
-              <PlusCircle className="w-4 h-4 text-amber-400" />
-              <span className="hidden sm:inline">إضافة مكنة</span>
+              <Plus className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">مكنة جديدة</span>
             </button>
 
-            {/* Cloud Sync Status Badge */}
+            {/* Sync Badge */}
             {getSyncBadge()}
 
-            {/* Quick Sync Button */}
-            <button
-              onClick={handleManualSync}
-              disabled={isManualSyncing}
-              className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors cursor-pointer hidden md:flex items-center"
-              title="مزامنة الآن مع السحابة"
-            >
-              <RefreshCw className={`w-4 h-4 ${isManualSyncing ? 'animate-spin text-blue-600' : ''}`} />
-            </button>
-
-            {/* Current Account Profile & Switch */}
+            {/* User Chip */}
             {currentAccount && (
               <div className="flex items-center gap-2 pr-2 border-r border-slate-200">
-                <div className="hidden lg:block text-left">
-                  <div className="text-xs font-bold text-slate-800 leading-tight">
-                    {currentAccount.name.split('(')[0]}
-                  </div>
-                  <div className="text-[10px] text-slate-500">
-                    {currentAccount.roleTitle}
-                  </div>
-                </div>
-
+                <span className="text-xs font-bold text-slate-800 hidden md:block">
+                  {currentAccount.name.split('(')[0]}
+                </span>
                 <button
                   type="button"
                   onClick={logout}
-                  className="flex items-center gap-1 text-xs text-slate-600 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-rose-200 transition-colors cursor-pointer"
-                  title="تبديل الحساب أو تسجيل الخروج"
+                  className="p-1.5 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
+                  title="تسجيل الخروج / تبديل الحساب"
                 >
-                  <LogOut className="w-3.5 h-3.5" />
-                  <span className="hidden md:inline">تبديل الحساب</span>
+                  <LogOut className="w-4 h-4" />
                 </button>
               </div>
             )}
