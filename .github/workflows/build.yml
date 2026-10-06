@@ -70,7 +70,7 @@ jobs:
         run: npm run build:electron
 
       - name: Build Electron Linux packages
-        run: npx electron-builder --linux
+        run: npx electron-builder --linux --publish never
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -124,7 +124,7 @@ jobs:
         run: npm run build:electron
 
       - name: Build Electron Windows installer
-        run: npx electron-builder --win
+        run: npx electron-builder --win --publish never
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

@@ -74,11 +74,7 @@
       "category": "Office",
       "synopsis": "Al-Aseel Motors Management System",
       "description": "Al-Aseel Motors — Car engines inventory and sales management",
-      "maintainer": "Al-Aseel Motors <info@alasel-motors.com>",
-      "desktop": {
-        "Name": "Al-Aseel Motors"
-      },
-      "syncDesktopName": true
+      "maintainer": "Al-Aseel Motors <info@alasel-motors.com>"
     },
     "win": {
       "target": [
