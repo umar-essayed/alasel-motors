@@ -3,14 +3,13 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db';
 import { Transaction } from '../../types';
 import { useAuth } from '../../context/AuthContext';
+import { exportToCsv } from '../../utils/exportUtils';
 import {
-  WalletCards,
-  PlusCircle,
-  MinusCircle,
+  Plus,
+  Minus,
   Search,
-  ArrowDownLeft,
-  ArrowUpRight,
   X,
+  Download,
 } from 'lucide-react';
 
 export const TreasuryView: React.FC = () => {
@@ -27,7 +26,7 @@ export const TreasuryView: React.FC = () => {
   const [error, setError] = useState('');
 
   const transactions = useLiveQuery(() => db.transactions.reverse().sortBy('createdAt')) || [];
-  const sales = useLiveQuery(() => db.salesInvoices.toArray()) || [];
+  const sales = useLiveQuery(() => db.salesInvoices.filter((s) => s.status !== 'returned').toArray()) || [];
 
   const totalIncome = transactions
     .filter((t) => t.type === 'income')
@@ -67,6 +66,7 @@ export const TreasuryView: React.FC = () => {
     if (category === 'rent') categoryLabel = 'إيجار';
     else if (category === 'salaries') categoryLabel = 'مرتبات';
     else if (category === 'shipping') categoryLabel = 'شحن ونقل';
+    else if (category === 'refund') categoryLabel = 'مرتجع مبيعات';
     else if (txType === 'income') categoryLabel = 'إيداع نقدية';
 
     await db.transactions.add({
@@ -88,16 +88,38 @@ export const TreasuryView: React.FC = () => {
     setNotes('');
   };
 
+  const handleExportCsv = () => {
+    const headers = ['التاريخ', 'النوع', 'التصنيف', 'البيان', 'المسؤول', 'المبلغ'];
+    const rows = filtered.map((t) => [
+      t.date,
+      t.type === 'income' ? 'وارد' : 'منصرف',
+      t.categoryLabel,
+      t.title,
+      t.createdBy,
+      t.amount,
+    ]);
+    exportToCsv('حركات_الخزينة_الأصيل', headers, rows);
+  };
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Header */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-white border border-zinc-200 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="font-display text-lg font-bold text-slate-900">الخزينة النقدية والأرباح</h2>
-          <span className="text-xs text-slate-400">حركة النقدية الفعلية ومصروفات المحل</span>
+          <h2 className="text-sm font-bold text-zinc-900">الخزينة والسيولة النقدية</h2>
+          <span className="text-[11px] text-zinc-400">حركة النقدية والمصروفات والواردات</span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={handleExportCsv}
+            className="flex items-center gap-1.5 px-3 py-2 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-xs font-semibold rounded-lg transition-colors cursor-pointer border border-zinc-200"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>تصدير إكسيل</span>
+          </button>
+
           <button
             type="button"
             onClick={() => {
@@ -106,11 +128,12 @@ export const TreasuryView: React.FC = () => {
               setTitle('إيداع نقدية');
               setIsModalOpen(true);
             }}
-            className="flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold px-3 py-2 rounded-xl transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer"
           >
-            <PlusCircle className="w-4 h-4" />
+            <Plus className="w-3.5 h-3.5" />
             <span>إيداع نقدية</span>
           </button>
+
           <button
             type="button"
             onClick={() => {
@@ -119,64 +142,64 @@ export const TreasuryView: React.FC = () => {
               setTitle('');
               setIsModalOpen(true);
             }}
-            className="flex items-center gap-1.5 bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold px-3 py-2 rounded-xl transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer"
           >
-            <MinusCircle className="w-4 h-4" />
+            <Minus className="w-3.5 h-3.5" />
             <span>تسجيل مصروف</span>
           </button>
         </div>
       </div>
 
-      {/* 4 Financial Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-xs">
-          <span className="text-xs font-bold text-slate-500 block">رصيد الخزينة (الدرج)</span>
-          <span className="font-mono text-2xl font-bold text-slate-900 block mt-1">
+      {/* Financial Metric Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+        <div className="bg-white border border-zinc-200 rounded-lg p-3">
+          <span className="text-[11px] font-semibold text-zinc-500 block">رصيد الخزينة الحالي</span>
+          <span className="font-mono text-base font-bold text-zinc-900 block mt-0.5">
             {currentCash.toLocaleString('en-US')} ج.م
           </span>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-xs">
-          <span className="text-xs font-bold text-slate-500 block">إجمالي الوارد للخزينة</span>
-          <span className="font-mono text-xl font-bold text-emerald-700 block mt-1">
+        <div className="bg-white border border-zinc-200 rounded-lg p-3">
+          <span className="text-[11px] font-semibold text-zinc-500 block">إجمالي الوارد</span>
+          <span className="font-mono text-base font-bold text-emerald-700 block mt-0.5">
             {totalIncome.toLocaleString('en-US')} ج.م
           </span>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-xs">
-          <span className="text-xs font-bold text-slate-500 block">إجمالي المنصرف</span>
-          <span className="font-mono text-xl font-bold text-rose-700 block mt-1">
+        <div className="bg-white border border-zinc-200 rounded-lg p-3">
+          <span className="text-[11px] font-semibold text-zinc-500 block">إجمالي المنصرف</span>
+          <span className="font-mono text-base font-bold text-rose-700 block mt-0.5">
             {totalExpense.toLocaleString('en-US')} ج.م
           </span>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-xs">
-          <span className="text-xs font-bold text-slate-500 block">صافي أرباح بيع المكن</span>
-          <span className="font-mono text-xl font-bold text-purple-700 block mt-1">
+        <div className="bg-white border border-zinc-200 rounded-lg p-3">
+          <span className="text-[11px] font-semibold text-zinc-500 block">صافي أرباح المبيعات</span>
+          <span className="font-mono text-base font-bold text-zinc-900 block mt-0.5">
             +{totalSalesProfit.toLocaleString('en-US')} ج.م
           </span>
         </div>
       </div>
 
       {/* Search & Filter */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="bg-white border border-zinc-200 rounded-xl p-2.5 flex flex-col sm:flex-row items-center justify-between gap-2.5">
         <div className="relative flex-1 w-full">
-          <Search className="w-4 h-4 absolute right-3 top-2.5 text-slate-400" />
+          <Search className="w-4 h-4 absolute right-3 top-2.5 text-zinc-400" />
           <input
             type="text"
-            placeholder="ابحث في حركات الخزينة..."
+            placeholder="بحث في حركات الخزينة..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-3 pr-9 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none"
+            className="w-full pl-3 pr-9 py-1.5 bg-zinc-50 border border-zinc-200 rounded-lg text-xs text-zinc-900 focus:bg-white focus:outline-none focus:border-zinc-800"
           />
         </div>
 
-        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs font-semibold shrink-0">
+        <div className="flex items-center gap-1 bg-zinc-100 p-1 rounded-lg text-xs font-medium shrink-0">
           <button
             type="button"
             onClick={() => setTypeFilter('all')}
-            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-              typeFilter === 'all' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600'
+            className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+              typeFilter === 'all' ? 'bg-white text-zinc-900 font-semibold shadow-xs' : 'text-zinc-600'
             }`}
           >
             الكل
@@ -184,8 +207,8 @@ export const TreasuryView: React.FC = () => {
           <button
             type="button"
             onClick={() => setTypeFilter('income')}
-            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-              typeFilter === 'income' ? 'bg-white text-emerald-800 shadow-xs font-bold' : 'text-slate-600'
+            className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+              typeFilter === 'income' ? 'bg-white text-zinc-900 font-semibold shadow-xs' : 'text-zinc-600'
             }`}
           >
             الوارد
@@ -193,8 +216,8 @@ export const TreasuryView: React.FC = () => {
           <button
             type="button"
             onClick={() => setTypeFilter('expense')}
-            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-              typeFilter === 'expense' ? 'bg-white text-rose-800 shadow-xs font-bold' : 'text-slate-600'
+            className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+              typeFilter === 'expense' ? 'bg-white text-zinc-900 font-semibold shadow-xs' : 'text-zinc-600'
             }`}
           >
             المنصرف
@@ -203,40 +226,48 @@ export const TreasuryView: React.FC = () => {
       </div>
 
       {/* Transactions Table */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+      <div className="bg-white border border-zinc-200 rounded-xl overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs">
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+            <thead className="bg-zinc-50 border-b border-zinc-200 text-zinc-600 font-semibold">
               <tr>
-                <th className="py-3 px-4">التاريخ</th>
-                <th className="py-3 px-4">التصنيف</th>
-                <th className="py-3 px-4">البيان</th>
-                <th className="py-3 px-4">المسؤول</th>
-                <th className="py-3 px-4 text-left">المبلغ</th>
+                <th className="py-2.5 px-4">التاريخ</th>
+                <th className="py-2.5 px-4">التصنيف</th>
+                <th className="py-2.5 px-4">البيان</th>
+                <th className="py-2.5 px-4">المسؤول</th>
+                <th className="py-2.5 px-4 text-left">المبلغ</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-zinc-100">
               {filtered.map((tx) => {
                 const isIncome = tx.type === 'income';
 
                 return (
-                  <tr key={tx.id} className="hover:bg-slate-50/70 transition-colors">
-                    <td className="py-3.5 px-4 font-mono text-slate-500">{tx.date}</td>
-                    <td className="py-3.5 px-4">
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                        isIncome ? 'bg-emerald-50 text-emerald-800' : 'bg-rose-50 text-rose-800'
-                      }`}>
+                  <tr key={tx.id} className="hover:bg-zinc-50/80 transition-colors">
+                    <td className="py-2.5 px-4 font-mono text-zinc-500">{tx.date}</td>
+                    <td className="py-2.5 px-4">
+                      <span
+                        className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded ${
+                          isIncome
+                            ? 'text-emerald-700 bg-emerald-50'
+                            : tx.category === 'refund'
+                            ? 'text-amber-800 bg-amber-50'
+                            : 'text-rose-700 bg-rose-50'
+                        }`}
+                      >
                         {tx.categoryLabel}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4">
-                      <span className="font-bold text-slate-900 block">{tx.title}</span>
-                      {tx.notes && <span className="text-[11px] text-slate-400">{tx.notes}</span>}
+                    <td className="py-2.5 px-4 font-medium text-zinc-800">
+                      <div>{tx.title}</div>
+                      {tx.notes && <span className="text-[11px] text-zinc-400 block">{tx.notes}</span>}
                     </td>
-                    <td className="py-3.5 px-4 text-slate-600">{tx.createdBy}</td>
-                    <td className={`py-3.5 px-4 text-left font-mono font-bold text-sm ${
-                      isIncome ? 'text-emerald-700' : 'text-rose-700'
-                    }`}>
+                    <td className="py-2.5 px-4 text-zinc-500">{tx.createdBy}</td>
+                    <td
+                      className={`py-2.5 px-4 text-left font-mono font-bold ${
+                        isIncome ? 'text-emerald-700' : 'text-rose-700'
+                      }`}
+                    >
                       {isIncome ? '+' : '-'}{tx.amount.toLocaleString('en-US')} ج.م
                     </td>
                   </tr>
@@ -245,7 +276,7 @@ export const TreasuryView: React.FC = () => {
 
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="py-12 text-center text-slate-400 text-sm">
+                  <td colSpan={5} className="py-8 text-center text-zinc-400 text-xs">
                     لا توجد حركات مسجلة
                   </td>
                 </tr>
@@ -256,76 +287,94 @@ export const TreasuryView: React.FC = () => {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5">
-          <div className="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl border border-slate-200">
-            <div className="bg-slate-900 text-white px-5 py-4 flex items-center justify-between">
-              <h3 className="font-bold text-sm">
-                {txType === 'income' ? 'إيداع نقدية في الخزينة' : 'تسجيل مصروف'}
+        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-3">
+          <div className="bg-white rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-xl">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
+              <h3 className="text-xs font-bold text-zinc-900">
+                {txType === 'income' ? 'إيداع نقدية في الخزينة' : 'تسجيل مصروف صادر'}
               </h3>
-              <button onClick={() => setIsModalOpen(false)} className="p-1 text-slate-400 hover:text-white cursor-pointer">
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+                className="text-zinc-400 hover:text-zinc-700"
+              >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleSave} className="p-5 space-y-3">
-              {error && <div className="text-rose-600 text-xs font-bold">{error}</div>}
+            {error && (
+              <div className="text-xs text-rose-600 bg-rose-50 p-2 rounded-lg font-medium">
+                {error}
+              </div>
+            )}
 
+            <form onSubmit={handleSave} className="space-y-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">المبلغ *</label>
+                <label className="block text-xs font-semibold text-zinc-700 mb-1">المبلغ (ج.م) *</label>
                 <input
                   type="number"
                   min="1"
                   required
-                  placeholder="0.00"
+                  autoFocus
+                  placeholder="0"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value === '' ? '' : Number(e.target.value))}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-base font-mono font-bold"
+                  className="w-full px-3 py-2 bg-zinc-50 border border-zinc-300 rounded-lg text-sm font-mono font-bold"
                 />
               </div>
 
               {txType === 'expense' && (
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">نوع المصروف</label>
+                  <label className="block text-xs font-semibold text-zinc-700 mb-1">نوع المصروف</label>
                   <select
                     value={category}
-                    onChange={(e) => setCategory(e.target.value as any)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs"
+                    onChange={(e) => setCategory(e.target.value as Transaction['category'])}
+                    className="w-full px-3 py-2 bg-zinc-50 border border-zinc-300 rounded-lg text-xs"
                   >
                     <option value="general_expense">مصروف عام</option>
                     <option value="rent">إيجار</option>
                     <option value="salaries">مرتبات</option>
-                    <option value="shipping">شحن ونقل مواتير</option>
+                    <option value="shipping">شحن ونقل</option>
                   </select>
                 </div>
               )}
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">البيان *</label>
+                <label className="block text-xs font-semibold text-zinc-700 mb-1">البيان *</label>
                 <input
                   type="text"
                   required
-                  placeholder="الوصف..."
+                  placeholder="وصف الحركة..."
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs"
+                  className="w-full px-3 py-2 bg-zinc-50 border border-zinc-300 rounded-lg text-xs"
                 />
               </div>
 
-              <div className="pt-3 border-t border-slate-200 flex justify-end gap-2">
+              <div>
+                <label className="block text-xs font-semibold text-zinc-700 mb-1">ملاحظات إضافية</label>
+                <input
+                  type="text"
+                  placeholder="اختياري..."
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  className="w-full px-3 py-2 bg-zinc-50 border border-zinc-300 rounded-lg text-xs"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-2 border-t border-zinc-200">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 text-xs font-semibold text-slate-700 border border-slate-300 rounded-xl cursor-pointer"
+                  className="px-3 py-1.5 text-xs text-zinc-600 hover:bg-zinc-100 rounded-lg"
                 >
                   إلغاء
                 </button>
                 <button
                   type="submit"
-                  className={`px-5 py-2 text-xs font-bold text-white rounded-xl cursor-pointer ${
-                    txType === 'income' ? 'bg-emerald-700' : 'bg-rose-700'
-                  }`}
+                  className="px-4 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold rounded-lg"
                 >
-                  تأكيد
+                  حفظ الحركة
                 </button>
               </div>
             </form>

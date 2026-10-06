@@ -10,7 +10,7 @@ export interface Account {
   createdAt: string;
 }
 
-export type EngineStatus = 'available' | 'reserved' | 'sold';
+export type EngineStatus = 'available' | 'reserved' | 'sold' | 'returned';
 
 export interface ClearanceDoc {
   id: string;
@@ -18,8 +18,8 @@ export interface ClearanceDoc {
   imageData: string; // Base64 Data URL (stored 100% locally in IndexedDB)
   fileName: string;
   mimeType: string;
-  customsOffice?: string; // e.g. جمرك بورسعيد / جمرك الإسكندرية / السويس
-  clearanceNumber?: string; // رقم الشهادة الجمركية / الإفراج
+  customsOffice?: string;
+  clearanceNumber?: string;
   date: string;
   notes?: string;
   createdAt: string;
@@ -29,17 +29,17 @@ export interface ClearanceDoc {
 
 export interface Engine {
   id: string;
-  engineNumber: string; // رقم المكنة / المحرك (Unique)
-  carBrand: string; // هيونداي، كيا، تويوتا، نيسان، ميتسوبيشي...
-  carModel: string; // إلنترا، سيراتو، كورولا، لانسر...
-  modelYear: string; // 2012-2016, 2015...
-  engineCapacity: string; // 1600cc - G4FC
-  transmissionType: string; // أوتوماتيك / عادي / يعمل على الاثنين
-  condition: string; // استيراد كامل / نص استيراد / استيراد بالفتيس / مجدد فحص
-  costPrice: number; // سعر الجملة / الشراء من المورد
-  additionalCost: number; // مصاريف شحن / تجهيز / فحص
-  sellingPrice: number; // سعر البيع المطلوب / المعروض
-  actualSoldPrice?: number; // سعر البيع الفعلي عند البيع
+  engineNumber: string; // رقم المكنة المدموغ (Unique)
+  carBrand: string;
+  carModel: string;
+  modelYear?: string;
+  engineCapacity?: string;
+  transmissionType?: string;
+  condition?: string;
+  costPrice: number;
+  additionalCost: number;
+  sellingPrice: number;
+  actualSoldPrice?: number;
   status: EngineStatus;
   supplierId?: string;
   supplierName?: string;
@@ -47,9 +47,9 @@ export interface Engine {
   customerName?: string;
   saleInvoiceId?: string;
   saleDate?: string;
-  warrantyPeriod?: string; // فترة الضمان
+  warrantyPeriod?: string;
   notes?: string;
-  hasClearanceDoc: boolean; // هل تم رفع صورة الإفراج الجمركي؟
+  hasClearanceDoc: boolean;
   clearanceDocId?: string;
   createdAt: string;
   updatedAt: string;
@@ -61,9 +61,9 @@ export interface Supplier {
   name: string;
   phone: string;
   address?: string;
-  totalPurchases: number; // إجمالي المشتريات منه
-  totalPaid: number; // إجمالي ما سددناه له
-  balance: number; // المتبقي له في ذمتنا (totalPurchases - totalPaid)
+  totalPurchases: number;
+  totalPaid: number;
+  balance: number;
   notes?: string;
   createdAt: string;
   updatedAt: string;
@@ -74,11 +74,11 @@ export interface Customer {
   id: string;
   name: string;
   phone: string;
-  nationalId?: string; // الرقم القومي
+  nationalId?: string;
   address?: string;
-  totalPurchases: number; // إجمالي مشترياته
-  totalPaid: number; // إجمالي ما سدده
-  balance: number; // المتبقي عليه آجل (totalPurchases - totalPaid)
+  totalPurchases: number;
+  totalPaid: number;
+  balance: number;
   notes?: string;
   createdAt: string;
   updatedAt: string;
@@ -93,19 +93,23 @@ export interface SalesInvoice {
   customerPhone: string;
   engineId: string;
   engineNumber: string;
-  engineTitle: string; // ماركة وموديل المكنة
-  costPrice: number; // سعر الجملة لحساب الربح
-  totalAmount: number; // إجمالي الفاتورة
-  discount: number; // الخصم
-  finalAmount: number; // الصافي
-  paidAmount: number; // المسدد نقداً
-  remainingAmount: number; // الآجل المتبقي
+  engineTitle: string;
+  costPrice: number;
+  totalAmount: number;
+  discount: number;
+  finalAmount: number;
+  paidAmount: number;
+  remainingAmount: number;
   paymentType: 'cash' | 'credit' | 'partial';
-  warrantyPeriod: string; // فترة التجربة والضمان
-  chassisNumber?: string; // رقم شاسيه السيارة المركب عليها الموتور
+  warrantyPeriod: string;
+  chassisNumber?: string;
   date: string;
-  profit: number; // الصافي - سعر الجملة والمصاريف
+  profit: number;
   notes?: string;
+  status?: 'active' | 'returned';
+  returnDate?: string;
+  returnReason?: string;
+  refundAmount?: number;
   createdBy: string;
   createdAt: string;
   synced?: boolean;
@@ -145,14 +149,14 @@ export interface PaymentReceipt {
 
 export interface Transaction {
   id: string;
-  type: 'income' | 'expense'; // وارد للخزينة أو مصروف صادر
-  category: 'sale' | 'customer_payment' | 'purchase' | 'supplier_payment' | 'rent' | 'salaries' | 'shipping' | 'general_expense';
+  type: 'income' | 'expense';
+  category: 'sale' | 'customer_payment' | 'purchase' | 'supplier_payment' | 'rent' | 'salaries' | 'shipping' | 'refund' | 'general_expense';
   categoryLabel: string;
   amount: number;
   title: string;
   notes?: string;
   date: string;
-  relatedId?: string; // معرف الفاتورة أو المكنة أو السند
+  relatedId?: string;
   createdBy: string;
   createdAt: string;
   synced?: boolean;
@@ -178,4 +182,5 @@ export interface ShopSettings {
   taxNumber?: string;
   defaultWarranty: string;
   invoiceNotice: string;
+  lastBackupDate?: string;
 }

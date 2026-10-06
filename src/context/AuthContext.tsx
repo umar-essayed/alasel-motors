@@ -2,6 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Account, UserRole } from '../types';
 import { db } from '../db';
 
+import { defaultAccounts } from '../db/seedData';
+
 interface AuthContextType {
   currentAccount: Account | null;
   accounts: Account[];
@@ -22,13 +24,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const loadAccounts = async () => {
     try {
-      const allAccounts = await db.accounts.toArray();
+      await db.open();
+      await db.seedInitialData();
+      let allAccounts = await db.accounts.toArray();
+      if (allAccounts.length === 0) {
+        await db.accounts.bulkPut(defaultAccounts as Account[]);
+        allAccounts = await db.accounts.toArray();
+      }
       setAccounts(allAccounts);
-      
+
       // Check if session stored
       const savedAccountId = sessionStorage.getItem('alasel_active_account_id');
       if (savedAccountId) {
-        const found = allAccounts.find(a => a.id === savedAccountId);
+        const found = allAccounts.find((a) => a.id === savedAccountId);
         if (found) {
           setCurrentAccount(found);
         }

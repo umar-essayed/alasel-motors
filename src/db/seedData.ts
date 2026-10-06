@@ -9,28 +9,28 @@ export const defaultSettings: ShopSettings = {
   address: '',
   commercialRecord: '',
   taxNumber: '',
-  defaultWarranty: 'ضمان شهر تجربة كاملة ضد عيوب الصناعة بشرط سلامة طبب المحرك ورقم الموتور',
-  invoiceNotice: 'المكنة مباعة بأوراق الإفراج الجمركي الأصلية وصالحة للترخيص في المرور خلال المدة القانونية.',
+  defaultWarranty: 'ضمان 30 يوم تجربة ضد عيوب الصناعة بشرط سلامة الطبب',
+  invoiceNotice: 'المحرك مباع بأوراق الإفراج الجمركي الأصلية وصالح للترخيص بالمرور',
 };
 
-// ─── حسابان فقط: المدير + الكاشير ──────────────────────────────────────────
+// ─── حسابات النظام ──────────────────────────────────────────────────────────
 export const defaultAccounts: Account[] = [
   {
     id: 'acc-admin',
     name: 'المدير',
     role: 'admin',
-    roleTitle: 'الإدارة العليا — صلاحيات كاملة',
+    roleTitle: 'مدير النظام',
     pin: '1234',
-    avatarColor: 'bg-slate-800 text-amber-400',
+    avatarColor: 'bg-zinc-800 text-white',
     createdAt: new Date().toISOString(),
   },
   {
     id: 'acc-cashier',
     name: 'الكاشير',
     role: 'sales',
-    roleTitle: 'المبيعات والعملاء وفواتير البيع',
+    roleTitle: 'كاشير مبيعات',
     pin: '5678',
-    avatarColor: 'bg-slate-700 text-white',
+    avatarColor: 'bg-zinc-700 text-white',
     createdAt: new Date().toISOString(),
   },
 ];

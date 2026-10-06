@@ -73,11 +73,11 @@ export class AlAselDatabase extends Dexie {
   async seedInitialData() {
     const accountsCount = await this.accounts.count();
     if (accountsCount === 0) {
-      await this.accounts.bulkAdd(defaultAccounts as Account[]);
+      await this.accounts.bulkPut(defaultAccounts as Account[]);
     }
     const settingsCount = await this.appSettings.count();
     if (settingsCount === 0) {
-      await this.appSettings.add({
+      await this.appSettings.put({
         id: 'main_settings',
         settings: defaultSettings,
         cloudSyncEnabled: false,

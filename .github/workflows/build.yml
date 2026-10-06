@@ -1,4 +1,4 @@
-name: Build Electron App
+name: CI/CD & Multi-Platform Release
 
 on:
   push:
@@ -11,9 +11,36 @@ permissions:
   contents: write
 
 jobs:
+  # ─── Lint & Tests Job ────────────────────────────────────────────────────────
+  test-and-lint:
+    name: Lint & Typecheck Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Linter
+        run: npm run lint
+
+      - name: TypeScript Verification (Web)
+        run: npx tsc -b
+
+      - name: TypeScript Verification (Electron)
+        run: npm run build:electron
+
   # ─── Build Linux ─────────────────────────────────────────────────────────────
   build-linux:
     name: Build Linux (AppImage + deb)
+    needs: test-and-lint
     runs-on: ubuntu-latest
 
     steps:
@@ -29,9 +56,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Write Firebase service account (from secret)
+      - name: Write Firebase service account (if secret provided)
+        shell: bash
         run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > alasel-954c7-firebase-adminsdk-fbsvc-247d2212b7.json
+          if [ -n "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" ]; then
+            echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > alasel-954c7-firebase-adminsdk-fbsvc-247d2212b7.json
+          fi
 
       - name: Build Vite (React app)
         run: npm run build
@@ -64,6 +94,7 @@ jobs:
   # ─── Build Windows ───────────────────────────────────────────────────────────
   build-windows:
     name: Build Windows (NSIS Installer)
+    needs: test-and-lint
     runs-on: windows-latest
 
     steps:
@@ -79,10 +110,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Write Firebase service account (from secret)
+      - name: Write Firebase service account (if secret provided)
         shell: bash
         run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > alasel-954c7-firebase-adminsdk-fbsvc-247d2212b7.json
+          if [ -n "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" ]; then
+            echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > alasel-954c7-firebase-adminsdk-fbsvc-247d2212b7.json
+          fi
 
       - name: Build Vite (React app)
         run: npm run build

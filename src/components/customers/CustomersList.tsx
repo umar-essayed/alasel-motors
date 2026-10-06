@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db';
 import { Customer, ShopSettings } from '../../types';
+import { exportToCsv } from '../../utils/exportUtils';
 import {
-  Users,
   UserPlus,
   Search,
-  HandCoins,
-  FileText,
-  Phone,
   Edit2,
   Trash2,
   X,
+  Download,
 } from 'lucide-react';
 import { CustomerPaymentModal } from './CustomerPaymentModal';
 import { CustomerStatementModal } from './CustomerStatementModal';
@@ -66,8 +64,8 @@ export const CustomersList: React.FC<CustomersListProps> = ({ settings }) => {
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !phone.trim()) {
-      setFormError('الاسم ورقم الهاتف مطلوبين');
+    if (!name.trim()) {
+      setFormError('اسم العميل مطلوب');
       return;
     }
 
@@ -97,126 +95,154 @@ export const CustomersList: React.FC<CustomersListProps> = ({ settings }) => {
 
   const handleDelete = async (c: Customer) => {
     if (c.balance > 0) {
-      alert(`لا يمكن حذف العميل لأن عليه آجل متبقي (${c.balance.toLocaleString('en-US')} ج.م)`);
+      alert(`لا يمكن حذف العميل لأن عليه متبقي (${c.balance.toLocaleString('en-US')} ج.م)`);
       return;
     }
-    if (window.confirm(`حذف العميل "${c.name}"؟`)) {
+    if (window.confirm(`تأكيد حذف العميل "${c.name}"؟`)) {
       await db.customers.delete(c.id);
     }
   };
 
+  const handleExportCsv = () => {
+    const headers = ['اسم العميل', 'رقم الهاتف', 'العنوان', 'إجمالي المشتريات', 'المسدد', 'المتبقي (الآجل)'];
+    const rows = filtered.map((c) => [
+      c.name,
+      c.phone,
+      c.address || '—',
+      c.totalPurchases,
+      c.totalPaid,
+      c.balance,
+    ]);
+    exportToCsv('عملاء_الأصيل_موتورز', headers, rows);
+  };
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Header */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-white border border-zinc-200 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="font-display text-lg font-bold text-slate-900">سجل العملاء والآجل</h2>
-            <span className="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full font-bold">
+            <h2 className="text-sm font-bold text-zinc-900">سجل العملاء والديون</h2>
+            <span className="text-[11px] bg-zinc-100 text-zinc-700 px-2 py-0.5 rounded-md font-semibold">
               {customers.length} عميل
             </span>
           </div>
-          <span className="text-xs text-slate-400">إجمالي الآجل بالخارج: {totalOutstanding.toLocaleString('en-US')} ج.م</span>
+          <span className="text-[11px] text-zinc-400">
+            إجمالي الآجل بالخارج: {totalOutstanding.toLocaleString('en-US')} ج.م
+          </span>
         </div>
 
-        <button
-          type="button"
-          onClick={openAdd}
-          className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors cursor-pointer shadow-xs shrink-0"
-        >
-          <UserPlus className="w-4 h-4 text-amber-400" />
-          <span>تسجيل عميل جديد</span>
-        </button>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={handleExportCsv}
+            className="flex items-center gap-1.5 px-3 py-2 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-xs font-semibold rounded-lg transition-colors cursor-pointer border border-zinc-200"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>تصدير إكسيل</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={openAdd}
+            className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer"
+          >
+            <UserPlus className="w-3.5 h-3.5" />
+            <span>تسجيل عميل</span>
+          </button>
+        </div>
       </div>
 
       {/* Filter and Search */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="bg-white border border-zinc-200 rounded-xl p-2.5 flex flex-col sm:flex-row items-center justify-between gap-2.5">
         <div className="relative flex-1 w-full">
-          <Search className="w-4 h-4 absolute right-3 top-2.5 text-slate-400" />
+          <Search className="w-4 h-4 absolute right-3 top-2.5 text-zinc-400" />
           <input
             type="text"
-            placeholder="ابحث باسم العميل أو رقم التليفون..."
+            placeholder="بحث باسم العميل أو رقم الهاتف..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-3 pr-9 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none"
+            className="w-full pl-3 pr-9 py-1.5 bg-zinc-50 border border-zinc-200 rounded-lg text-xs text-zinc-900 focus:bg-white focus:outline-none focus:border-zinc-800"
           />
         </div>
 
         <button
           type="button"
           onClick={() => setFilterDebtOnly(!filterDebtOnly)}
-          className={`px-3 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer shrink-0 ${
-            filterDebtOnly ? 'bg-amber-500 text-slate-950' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer shrink-0 ${
+            filterDebtOnly ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
           }`}
         >
-          {filterDebtOnly ? 'عرض الكل' : `عليهم آجل فقط (${debtCount})`}
+          {filterDebtOnly ? 'عرض الكل' : `عليهم آجل (${debtCount})`}
         </button>
       </div>
 
-      {/* Table of Customers */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+      {/* Customers Table */}
+      <div className="bg-white border border-zinc-200 rounded-xl overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs">
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+            <thead className="bg-zinc-50 border-b border-zinc-200 text-zinc-600 font-semibold">
               <tr>
-                <th className="py-3 px-4">اسم العميل</th>
-                <th className="py-3 px-4">رقم الهاتف</th>
-                <th className="py-3 px-4 text-left">إجمالي المشتريات</th>
-                <th className="py-3 px-4 text-left">إجمالي المسدد</th>
-                <th className="py-3 px-4 text-left">الآجل المتبقي</th>
-                <th className="py-3 px-4 text-center">إجراءات</th>
+                <th className="py-2.5 px-4">اسم العميل</th>
+                <th className="py-2.5 px-4">رقم الهاتف</th>
+                <th className="py-2.5 px-4 text-left">إجمالي المشتريات</th>
+                <th className="py-2.5 px-4 text-left">المسدد</th>
+                <th className="py-2.5 px-4 text-left">الآجل المتبقي</th>
+                <th className="py-2.5 px-4 text-center">إجراءات</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-zinc-100">
               {filtered.map((c) => {
                 const hasDebt = c.balance > 0;
 
                 return (
-                  <tr key={c.id} className="hover:bg-slate-50/70 transition-colors">
-                    <td className="py-3.5 px-4 font-bold text-slate-900">{c.name}</td>
-                    <td className="py-3.5 px-4 font-mono text-slate-600">{c.phone}</td>
-                    <td className="py-3.5 px-4 text-left font-mono font-semibold text-slate-800">
+                  <tr key={c.id} className="hover:bg-zinc-50/80 transition-colors">
+                    <td className="py-2.5 px-4 font-semibold text-zinc-900">{c.name}</td>
+                    <td className="py-2.5 px-4 font-mono text-zinc-500">{c.phone || '—'}</td>
+                    <td className="py-2.5 px-4 text-left font-mono font-medium text-zinc-800">
                       {c.totalPurchases.toLocaleString('en-US')} ج.م
                     </td>
-                    <td className="py-3.5 px-4 text-left font-mono font-semibold text-emerald-700">
+                    <td className="py-2.5 px-4 text-left font-mono font-medium text-emerald-700">
                       {c.totalPaid.toLocaleString('en-US')} ج.م
                     </td>
-                    <td className="py-3.5 px-4 text-left font-mono font-bold">
+                    <td className="py-2.5 px-4 text-left font-mono font-bold">
                       {hasDebt ? (
                         <span className="text-amber-700">{c.balance.toLocaleString('en-US')} ج.م</span>
                       ) : (
-                        <span className="text-slate-400 font-normal">خالص</span>
+                        <span className="text-zinc-400 font-normal">خالص</span>
                       )}
                     </td>
-                    <td className="py-3.5 px-4 text-center">
+                    <td className="py-2.5 px-4 text-center">
                       <div className="flex items-center justify-center gap-1.5">
                         {hasDebt && (
                           <button
                             type="button"
                             onClick={() => setPayingCustomer(c)}
-                            className="px-2.5 py-1 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-bold cursor-pointer"
+                            className="px-2 py-1 bg-emerald-700 hover:bg-emerald-800 text-white rounded text-[11px] font-semibold cursor-pointer"
                           >
-                            تحصيل دفعة
+                            سداد
                           </button>
                         )}
                         <button
                           type="button"
                           onClick={() => setStatementCustomer(c)}
-                          className="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold cursor-pointer"
+                          className="px-2 py-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 rounded text-[11px] font-medium cursor-pointer"
                         >
                           كشف حساب
                         </button>
                         <button
                           type="button"
                           onClick={() => openEdit(c)}
-                          className="p-1 text-slate-400 hover:text-slate-700 cursor-pointer"
+                          className="p-1 text-zinc-400 hover:text-zinc-800 rounded cursor-pointer"
+                          title="تعديل"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
                         <button
                           type="button"
                           onClick={() => handleDelete(c)}
-                          className="p-1 text-slate-400 hover:text-rose-600 cursor-pointer"
+                          className="p-1 text-zinc-400 hover:text-rose-600 rounded cursor-pointer"
+                          title="حذف"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -228,8 +254,8 @@ export const CustomersList: React.FC<CustomersListProps> = ({ settings }) => {
 
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-400 text-sm">
-                    لا يوجد عملاء يطابقون البحث
+                  <td colSpan={6} className="py-8 text-center text-zinc-400 text-xs">
+                    لا يوجد عملاء
                   </td>
                 </tr>
               )}
@@ -255,62 +281,70 @@ export const CustomersList: React.FC<CustomersListProps> = ({ settings }) => {
       )}
 
       {isAddCustomerOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5">
-          <div className="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl border border-slate-200">
-            <div className="bg-slate-900 text-white px-5 py-4 flex items-center justify-between">
-              <h3 className="font-bold text-sm">
+        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-3">
+          <div className="bg-white rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-xl">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
+              <h3 className="text-xs font-bold text-zinc-900">
                 {editingCustomer ? 'تعديل بيانات العميل' : 'تسجيل عميل جديد'}
               </h3>
-              <button onClick={() => setIsAddCustomerOpen(false)} className="p-1 text-slate-400 hover:text-white cursor-pointer">
+              <button
+                type="button"
+                onClick={() => setIsAddCustomerOpen(false)}
+                className="text-zinc-400 hover:text-zinc-700"
+              >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleSave} className="p-5 space-y-3">
-              {formError && <div className="text-rose-600 text-xs font-bold">{formError}</div>}
+            {formError && (
+              <div className="text-xs text-rose-600 bg-rose-50 p-2 rounded-lg font-medium">
+                {formError}
+              </div>
+            )}
+
+            <form onSubmit={handleSave} className="space-y-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">اسم العميل *</label>
+                <label className="block text-xs font-semibold text-zinc-700 mb-1">اسم العميل *</label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs"
+                  className="w-full px-3 py-2 bg-zinc-50 border border-zinc-300 rounded-lg text-xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">رقم الهاتف *</label>
+                <label className="block text-xs font-semibold text-zinc-700 mb-1">رقم الهاتف</label>
                 <input
                   type="tel"
-                  required
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono"
+                  className="w-full px-3 py-2 bg-zinc-50 border border-zinc-300 rounded-lg text-xs font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">العنوان / الورشة</label>
+                <label className="block text-xs font-semibold text-zinc-700 mb-1">العنوان</label>
                 <input
                   type="text"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs"
+                  className="w-full px-3 py-2 bg-zinc-50 border border-zinc-300 rounded-lg text-xs"
                 />
               </div>
 
-              <div className="pt-3 border-t border-slate-200 flex justify-end gap-2">
+              <div className="flex justify-end gap-2 pt-2 border-t border-zinc-200">
                 <button
                   type="button"
                   onClick={() => setIsAddCustomerOpen(false)}
-                  className="px-4 py-2 text-xs font-semibold text-slate-700 border border-slate-300 rounded-xl cursor-pointer"
+                  className="px-3 py-1.5 text-xs text-zinc-600 hover:bg-zinc-100 rounded-lg"
                 >
                   إلغاء
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-bold text-white bg-slate-900 rounded-xl cursor-pointer"
+                  className="px-4 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold rounded-lg"
                 >
                   حفظ
                 </button>

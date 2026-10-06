@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { Account } from '../../types';
-import { KeyRound, ArrowRight, Delete, AlertCircle, Shield, UserCheck } from 'lucide-react';
+import { ArrowLeft, Delete, AlertCircle } from 'lucide-react';
 
 export const LoginView: React.FC = () => {
   const { accounts, loginWithPin } = useAuth();
@@ -53,6 +53,8 @@ export const LoginView: React.FC = () => {
         setSelectedAccount(null);
         setPin('');
         setError('');
+      } else if (e.key === 'Enter' && pin.length === 4) {
+        submitPin(pin);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -60,28 +62,26 @@ export const LoginView: React.FC = () => {
   }, [selectedAccount, pin]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center items-center px-4 py-12">
-      {/* Header with official logo */}
-      <div className="text-center mb-8">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col justify-center items-center px-4 py-8 select-none">
+      <div className="text-center mb-6">
         <img
           src="/logo.png"
           alt="الأصيل موتورز"
-          className="w-20 h-20 mx-auto object-contain mb-3 drop-shadow-md"
+          className="w-16 h-16 mx-auto object-contain mb-3"
         />
-        <h1 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-white">
+        <h1 className="text-xl font-bold tracking-tight text-white">
           الأصيل موتورز
         </h1>
-        <p className="text-xs text-slate-400 mt-1">نظام إدارة المحركات والحسابات</p>
+        <p className="text-xs text-zinc-400 mt-0.5">نظام إدارة المحركات والمبيعات</p>
       </div>
 
       {!selectedAccount ? (
-        /* ACCOUNT PICKER */
-        <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-7 shadow-2xl">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 text-center mb-5">
-            اختر حساب المستخدم للمتابعة
-          </h2>
+        <div className="w-full max-w-sm bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-lg">
+          <p className="text-xs font-semibold text-zinc-400 text-center mb-4">
+            اختر المستخدم
+          </p>
 
-          <div className="space-y-2.5">
+          <div className="space-y-2">
             {accounts.map((acc) => (
               <button
                 key={acc.id}
@@ -91,32 +91,31 @@ export const LoginView: React.FC = () => {
                   setPin('');
                   setError('');
                 }}
-                className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-slate-600 transition-all text-right cursor-pointer group"
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/60 hover:border-zinc-600 transition-colors text-right cursor-pointer group"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center font-bold text-amber-400 text-sm group-hover:border-amber-400/40 transition-colors">
+                  <div className="w-9 h-9 rounded-lg bg-zinc-700 text-white flex items-center justify-center font-bold text-sm">
                     {acc.name.charAt(0)}
                   </div>
                   <div>
-                    <span className="font-bold text-slate-100 text-sm block group-hover:text-amber-400 transition-colors">
+                    <span className="font-semibold text-zinc-100 text-sm block">
                       {acc.name}
                     </span>
-                    <span className="text-[11px] text-slate-400 block">{acc.roleTitle}</span>
+                    <span className="text-[11px] text-zinc-400 block">{acc.roleTitle}</span>
                   </div>
                 </div>
 
-                <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-slate-300 transition-colors rotate-180" />
+                <ArrowLeft className="w-4 h-4 text-zinc-500 group-hover:text-zinc-300 transition-colors" />
               </button>
             ))}
           </div>
         </div>
       ) : (
-        /* PIN ENTRY */
-        <div className="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
-          <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+        <div className="w-full max-w-xs bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-lg">
+          <div className="flex items-center justify-between mb-5 pb-3 border-b border-zinc-800">
             <div>
               <h3 className="font-bold text-white text-sm">{selectedAccount.name}</h3>
-              <p className="text-[11px] text-slate-400">{selectedAccount.roleTitle}</p>
+              <p className="text-[11px] text-zinc-400">{selectedAccount.roleTitle}</p>
             </div>
             <button
               type="button"
@@ -125,24 +124,21 @@ export const LoginView: React.FC = () => {
                 setPin('');
                 setError('');
               }}
-              className="text-xs text-slate-400 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700 cursor-pointer"
+              className="text-xs text-zinc-400 hover:text-white px-2.5 py-1 rounded-md bg-zinc-800 border border-zinc-700 cursor-pointer"
             >
-              رجوع
+              تغيير
             </button>
           </div>
 
-          {/* Dots */}
-          <div className="flex flex-col items-center mb-6">
-            <div className="flex items-center gap-3 dir-ltr my-3">
+          <div className="flex flex-col items-center mb-5">
+            <div className="flex items-center gap-2.5 dir-ltr my-2">
               {[0, 1, 2, 3].map((i) => {
                 const filled = pin.length > i;
                 return (
                   <div
                     key={i}
-                    className={`w-3.5 h-3.5 rounded-full transition-all duration-150 ${
-                      filled
-                        ? 'bg-amber-400 scale-110 shadow-sm shadow-amber-400/50'
-                        : 'bg-slate-800 border border-slate-700'
+                    className={`w-3 h-3 rounded-full transition-colors ${
+                      filled ? 'bg-white' : 'bg-zinc-800 border border-zinc-700'
                     }`}
                   />
                 );
@@ -150,14 +146,13 @@ export const LoginView: React.FC = () => {
             </div>
 
             {error && (
-              <div className="text-xs text-rose-400 mt-2 font-semibold flex items-center gap-1">
+              <div className="text-xs text-rose-400 mt-2 font-medium flex items-center gap-1">
                 <AlertCircle className="w-3.5 h-3.5" />
                 <span>{error}</span>
               </div>
             )}
           </div>
 
-          {/* Numeric Keypad */}
           <div className="grid grid-cols-3 gap-2">
             {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((digit) => (
               <button
@@ -165,7 +160,7 @@ export const LoginView: React.FC = () => {
                 type="button"
                 onClick={() => handleDigit(digit)}
                 disabled={isSubmitting}
-                className="h-12 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-white font-bold font-mono text-lg transition-all cursor-pointer active:scale-95 border border-slate-700/60"
+                className="h-11 rounded-lg bg-zinc-800/80 hover:bg-zinc-700 text-white font-mono text-base font-semibold transition-colors cursor-pointer active:scale-95 border border-zinc-700/50"
               >
                 {digit}
               </button>
@@ -174,7 +169,7 @@ export const LoginView: React.FC = () => {
               type="button"
               onClick={handleClear}
               disabled={isSubmitting}
-              className="h-12 rounded-xl bg-slate-800/40 text-slate-400 hover:text-white text-xs font-semibold cursor-pointer"
+              className="h-11 rounded-lg bg-zinc-800/40 text-zinc-400 hover:text-white text-xs cursor-pointer"
             >
               مسح
             </button>
@@ -182,7 +177,7 @@ export const LoginView: React.FC = () => {
               type="button"
               onClick={() => handleDigit('0')}
               disabled={isSubmitting}
-              className="h-12 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-white font-bold font-mono text-lg transition-all cursor-pointer active:scale-95 border border-slate-700/60"
+              className="h-11 rounded-lg bg-zinc-800/80 hover:bg-zinc-700 text-white font-mono text-base font-semibold transition-colors cursor-pointer active:scale-95 border border-zinc-700/50"
             >
               0
             </button>
@@ -190,7 +185,7 @@ export const LoginView: React.FC = () => {
               type="button"
               onClick={handleDelete}
               disabled={isSubmitting}
-              className="h-12 rounded-xl bg-slate-800/40 text-slate-400 hover:text-rose-400 flex items-center justify-center cursor-pointer"
+              className="h-11 rounded-lg bg-zinc-800/40 text-zinc-400 hover:text-rose-400 flex items-center justify-center cursor-pointer"
             >
               <Delete className="w-4 h-4" />
             </button>

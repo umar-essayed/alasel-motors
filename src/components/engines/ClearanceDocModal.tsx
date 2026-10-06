@@ -7,10 +7,7 @@ import {
   ZoomIn,
   ZoomOut,
   RotateCw,
-  FileCheck,
-  Building,
-  Calendar,
-  Hash,
+  FileCheck2,
 } from 'lucide-react';
 
 interface ClearanceDocModalProps {
@@ -37,7 +34,7 @@ export const ClearanceDocModal: React.FC<ClearanceDocModalProps> = ({
       <!DOCTYPE html>
       <html dir="rtl" lang="ar">
         <head>
-          <title>ورق الإفراج الجمركي - مكنة رقم ${doc.engineNumber}</title>
+          <title>ورق الإفراج الجمركي - محرك ${doc.engineNumber}</title>
           <style>
             @page { size: auto; margin: 10mm; }
             body { font-family: system-ui, -apple-system, sans-serif; text-align: center; margin: 0; padding: 10px; }
@@ -48,13 +45,13 @@ export const ClearanceDocModal: React.FC<ClearanceDocModalProps> = ({
         </head>
         <body>
           <div class="header">
-            <h2>محل الأصيل لمواتير السيارات</h2>
-            <p>صورة طبق الأصل من أوراق الإفراج والتخليص الجمركي المعتمدة</p>
+            <h2>الأصيل موتورز</h2>
+            <p>صورة أوراق الإفراج والتخليص الجمركي المعتمدة</p>
           </div>
           <div class="meta">
-            <div>رقم المكنة: ${doc.engineNumber}</div>
-            <div>رقم الإفراج الجمركي: ${doc.clearanceNumber || 'غير محدد'}</div>
-            <div>تاريخ الإفراج: ${doc.date}</div>
+            <div>رقم المحرك: ${doc.engineNumber}</div>
+            <div>رقم الإفراج: ${doc.clearanceNumber || '—'}</div>
+            <div>تاريخ الإفراج: ${doc.date || '—'}</div>
           </div>
           <img src="${doc.imageData}" alt="ورق الإفراج الجمركي" />
         </body>
@@ -71,57 +68,55 @@ export const ClearanceDocModal: React.FC<ClearanceDocModalProps> = ({
   const handleDownload = () => {
     const link = document.createElement('a');
     link.href = doc.imageData;
-    link.download = doc.fileName || `إفراج_جمركي_مكنة_${doc.engineNumber}.png`;
+    link.download = doc.fileName || `إفراج_محرك_${doc.engineNumber}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4">
-      <div className="bg-white rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl border border-slate-200 flex flex-col max-h-[92vh]">
+    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-white rounded-2xl max-w-3xl w-full overflow-hidden shadow-2xl border border-zinc-200 flex flex-col max-h-[92vh]">
         {/* Modal Header */}
-        <div className="bg-slate-900 text-white px-5 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-slate-800 text-amber-400">
-              <FileCheck className="w-5 h-5" />
-            </div>
+        <div className="bg-zinc-900 text-white px-5 py-3.5 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <FileCheck2 className="w-4 h-4 text-zinc-400" />
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-display font-bold text-lg text-white">
-                  أوراق الإفراج الجمركي والتخليص
-                </h3>
-                <span className="bg-amber-400 text-slate-950 font-mono font-bold text-xs px-2 py-0.5 rounded-md">
+                <h3 className="font-bold text-sm text-white">ورقة الإفراج الجمركي</h3>
+                <span className="font-mono font-bold text-xs bg-zinc-800 text-zinc-200 px-2 py-0.5 rounded">
                   {doc.engineNumber}
                 </span>
               </div>
-              <p className="text-xs text-slate-400 mt-0.5">
-                {engine ? `${engine.carBrand} - ${engine.carModel} (${engine.modelYear})` : 'مستند مخصص لترخيص المحرك بالمرور'}
-              </p>
+              {engine && (
+                <span className="text-[11px] text-zinc-400 block">
+                  {engine.carBrand} {engine.carModel}
+                </span>
+              )}
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
               type="button"
               onClick={handlePrint}
-              className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
             >
-              <Printer className="w-3.5 h-3.5 text-amber-400" />
-              <span>طباعة المستند</span>
+              <Printer className="w-3.5 h-3.5" />
+              <span>طباعة</span>
             </button>
             <button
               type="button"
               onClick={handleDownload}
-              className="p-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors cursor-pointer"
-              title="تحميل الصورة"
+              className="p-1.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg cursor-pointer"
+              title="تحميل"
             >
-              <Download className="w-4 h-4" />
+              <Download className="w-3.5 h-3.5" />
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 bg-slate-800 hover:bg-rose-900 text-slate-400 hover:text-white rounded-lg transition-colors cursor-pointer"
+              className="p-1.5 text-zinc-400 hover:text-white rounded-lg cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -129,78 +124,59 @@ export const ClearanceDocModal: React.FC<ClearanceDocModalProps> = ({
         </div>
 
         {/* Metadata info strip */}
-        <div className="bg-slate-50 border-b border-slate-200 px-5 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-700">
+        <div className="bg-zinc-50 border-b border-zinc-200 px-5 py-2 flex flex-wrap items-center justify-between text-xs text-zinc-600 font-mono">
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1">
-              <Building className="w-3.5 h-3.5 text-slate-400" />
-              <strong className="text-slate-900">الجمرك:</strong>{' '}
-              {doc.customsOffice || 'جمرك بورسعيد الاستيرادي'}
-            </span>
-            <span className="flex items-center gap-1">
-              <Hash className="w-3.5 h-3.5 text-slate-400" />
-              <strong className="text-slate-900">رقم الإفراج:</strong>{' '}
-              {doc.clearanceNumber || 'مسجل بالنظام'}
-            </span>
-            <span className="flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5 text-slate-400" />
-              <strong className="text-slate-900">تاريخ الإفراج:</strong> {doc.date}
-            </span>
+            {doc.customsOffice && <span>الجمرك: <strong className="text-zinc-900">{doc.customsOffice}</strong></span>}
+            {doc.clearanceNumber && <span>رقم الإفراج: <strong className="text-zinc-900">{doc.clearanceNumber}</strong></span>}
+            {doc.date && <span>التاريخ: {doc.date}</span>}
           </div>
 
-          {/* Zoom controls */}
-          <div className="flex items-center gap-1 bg-white border border-slate-300 rounded-lg p-0.5">
+          {/* Controls */}
+          <div className="flex items-center gap-1 font-sans">
             <button
               type="button"
-              onClick={() => setZoomLevel((z) => Math.max(0.6, z - 0.2))}
-              className="p-1 text-slate-600 hover:bg-slate-100 rounded cursor-pointer"
-              title="تصغير"
-            >
-              <ZoomOut className="w-3.5 h-3.5" />
-            </button>
-            <span className="text-[11px] font-mono font-bold px-1.5 text-slate-700">
-              {Math.round(zoomLevel * 100)}%
-            </span>
-            <button
-              type="button"
-              onClick={() => setZoomLevel((z) => Math.min(2.5, z + 0.2))}
-              className="p-1 text-slate-600 hover:bg-slate-100 rounded cursor-pointer"
+              onClick={() => setZoomLevel((z) => Math.min(z + 0.25, 2.5))}
+              className="p-1 hover:bg-zinc-200 rounded text-zinc-700 cursor-pointer"
               title="تكبير"
             >
-              <ZoomIn className="w-3.5 h-3.5" />
+              <ZoomIn className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setZoomLevel((z) => Math.max(z - 0.25, 0.5))}
+              className="p-1 hover:bg-zinc-200 rounded text-zinc-700 cursor-pointer"
+              title="تصغير"
+            >
+              <ZoomOut className="w-4 h-4" />
             </button>
             <button
               type="button"
               onClick={() => setRotation((r) => (r + 90) % 360)}
-              className="p-1 text-slate-600 hover:bg-slate-100 rounded cursor-pointer"
+              className="p-1 hover:bg-zinc-200 rounded text-zinc-700 cursor-pointer"
               title="تدوير"
             >
-              <RotateCw className="w-3.5 h-3.5" />
+              <RotateCw className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        {/* Image Display Area */}
-        <div className="flex-1 bg-slate-100 overflow-auto p-4 flex items-center justify-center min-h-[400px]">
+        {/* Document Viewer Container */}
+        <div className="flex-1 overflow-auto bg-zinc-100 p-4 flex items-center justify-center min-h-[350px]">
           <div
-            className="transition-transform duration-150 origin-center max-w-full flex items-center justify-center"
             style={{
               transform: `scale(${zoomLevel}) rotate(${rotation}deg)`,
+              transformOrigin: 'center center',
+              transition: 'transform 0.2s ease',
             }}
+            className="max-w-full"
           >
             <img
               src={doc.imageData}
-              alt={`إفراج جمركي مكنة ${doc.engineNumber}`}
-              className="max-h-[650px] w-auto rounded-lg shadow-md border border-slate-300 bg-white object-contain"
+              alt="ورق الإفراج الجمركي"
+              className="max-h-[70vh] w-auto object-contain rounded-lg shadow-md border border-zinc-300"
             />
           </div>
         </div>
-
-        {/* Footer */}
-        {doc.notes && (
-          <div className="bg-slate-50 border-t border-slate-200 px-5 py-2.5 text-xs text-slate-600">
-            <strong className="text-slate-800">ملاحظات:</strong> {doc.notes}
-          </div>
-        )}
       </div>
     </div>
   );

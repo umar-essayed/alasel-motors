@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db';
 import { Engine, ClearanceDoc } from '../../types';
+import { exportToCsv } from '../../utils/exportUtils';
 import {
   Cpu,
   Plus,
   Search,
-  CheckCircle2,
   Trash2,
   Edit2,
   FileCheck2,
   ShoppingCart,
   Upload,
+  Download,
 } from 'lucide-react';
 import { ClearanceDocModal } from './ClearanceDocModal';
 import { EngineFormModal } from './EngineFormModal';
@@ -72,7 +73,7 @@ export const EnginesList: React.FC<EnginesListProps> = ({
   };
 
   const handleDelete = async (eng: Engine) => {
-    if (window.confirm(`حذف المكنة (${eng.engineNumber}) من المخزن؟`)) {
+    if (window.confirm(`تأكيد حذف المحرك (${eng.engineNumber})؟`)) {
       await db.engines.delete(eng.id);
       if (eng.hasClearanceDoc) {
         await db.clearanceDocs.where('engineNumber').equals(eng.engineNumber).delete();
@@ -80,72 +81,111 @@ export const EnginesList: React.FC<EnginesListProps> = ({
     }
   };
 
+  const handleExportCsv = () => {
+    const headers = [
+      'رقم المحرك',
+      'الماركة',
+      'الموديل',
+      'سعر الشراء',
+      'مصاريف إضافية',
+      'سعر البيع',
+      'الحالة',
+      'المورد',
+      'ورقة إفراج جمركي',
+    ];
+
+    const rows = filtered.map((e) => [
+      e.engineNumber,
+      e.carBrand,
+      e.carModel,
+      e.costPrice,
+      e.additionalCost,
+      e.sellingPrice,
+      e.status === 'available' ? 'متاح' : e.status === 'sold' ? 'مباع' : 'مرتجع',
+      e.supplierName || '—',
+      e.hasClearanceDoc ? 'نعم' : 'لا',
+    ]);
+
+    exportToCsv('مخزن_محركات_الأصيل', headers, rows);
+  };
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Action Header */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-slate-900 text-amber-400 flex items-center justify-center font-bold">
-            <Cpu className="w-5 h-5" />
+      <div className="bg-white border border-zinc-200 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white flex items-center justify-center font-bold">
+            <Cpu className="w-4 h-4" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="font-display text-lg font-bold text-slate-900">مخزن مواتير السيارات</h2>
-              <span className="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full font-bold">
-                {availableCount} متاح للبيع
+              <h2 className="text-sm font-bold text-zinc-900">مخزن المحركات</h2>
+              <span className="text-[11px] bg-zinc-100 text-zinc-700 px-2 py-0.5 rounded-md font-semibold">
+                {availableCount} متاح
               </span>
             </div>
-            <span className="text-xs text-slate-400">إجمالي المخزن: {engines.length} مكنة</span>
+            <span className="text-[11px] text-zinc-400">إجمالي المخزون: {engines.length}</span>
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={() => {
-            setEditingEngine(null);
-            setIsFormModalOpen(true);
-          }}
-          className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors cursor-pointer shadow-xs shrink-0"
-        >
-          <Plus className="w-4 h-4 text-amber-400" />
-          <span>إضافة مكنة جديدة</span>
-        </button>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={handleExportCsv}
+            className="flex items-center gap-1.5 px-3 py-2 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-xs font-semibold rounded-lg transition-colors cursor-pointer border border-zinc-200"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>تصدير إكسيل</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setEditingEngine(null);
+              setIsFormModalOpen(true);
+            }}
+            className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span>إضافة محرك</span>
+          </button>
+        </div>
       </div>
 
-      {/* Filter and Search Bar */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-3.5 shadow-xs flex flex-col sm:flex-row items-center gap-3">
+      {/* Filter and Search */}
+      <div className="bg-white border border-zinc-200 rounded-xl p-3 flex flex-col sm:flex-row items-center gap-2.5">
         <div className="relative flex-1 w-full">
-          <Search className="w-4 h-4 absolute right-3 top-2.5 text-slate-400" />
+          <Search className="w-4 h-4 absolute right-3 top-2.5 text-zinc-400" />
           <input
             type="text"
-            placeholder="ابحث برقم المكنة المدموغ، الماركة، أو الموديل..."
+            placeholder="بحث برقم المحرك، الماركة، أو الموديل..."
             value={internalSearch}
             onChange={(e) => setInternalSearch(e.target.value)}
-            className="w-full pl-3 pr-9 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none"
+            className="w-full pl-3 pr-9 py-1.5 bg-zinc-50 border border-zinc-200 rounded-lg text-xs text-zinc-900 focus:bg-white focus:outline-none focus:border-zinc-800"
           />
         </div>
 
-        <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl text-xs font-semibold shrink-0">
+        <div className="flex items-center gap-1 bg-zinc-100 p-1 rounded-lg text-xs font-medium shrink-0">
           <button
             onClick={() => setSelectedStatus('all')}
-            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-              selectedStatus === 'all' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600'
+            className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+              selectedStatus === 'all' ? 'bg-white text-zinc-900 font-semibold shadow-xs' : 'text-zinc-600'
             }`}
           >
             الكل ({engines.length})
           </button>
           <button
             onClick={() => setSelectedStatus('available')}
-            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-              selectedStatus === 'available' ? 'bg-white text-emerald-800 shadow-xs font-bold' : 'text-slate-600'
+            className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+              selectedStatus === 'available' ? 'bg-white text-zinc-900 font-semibold shadow-xs' : 'text-zinc-600'
             }`}
           >
             متاح ({availableCount})
           </button>
           <button
             onClick={() => setSelectedStatus('sold')}
-            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
-              selectedStatus === 'sold' ? 'bg-white text-slate-900 shadow-xs font-bold' : 'text-slate-600'
+            className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+              selectedStatus === 'sold' ? 'bg-white text-zinc-900 font-semibold shadow-xs' : 'text-zinc-600'
             }`}
           >
             مباع ({soldCount})
@@ -155,7 +195,7 @@ export const EnginesList: React.FC<EnginesListProps> = ({
         <select
           value={docFilter}
           onChange={(e) => setDocFilter(e.target.value)}
-          className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:bg-white focus:outline-none shrink-0"
+          className="px-2.5 py-1.5 bg-zinc-50 border border-zinc-200 rounded-lg text-xs text-zinc-700 focus:bg-white focus:outline-none shrink-0"
         >
           <option value="all">كل الأوراق</option>
           <option value="with_doc">بورق إفراج</option>
@@ -163,106 +203,98 @@ export const EnginesList: React.FC<EnginesListProps> = ({
         </select>
       </div>
 
-      {/* Clean Engines Table */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs w-full">
+      {/* High-Density Engines Table */}
+      <div className="bg-white border border-zinc-200 rounded-xl overflow-hidden shadow-xs w-full">
         <div className="overflow-x-auto">
-          <table className="w-full text-right text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold">
+          <table className="w-full text-right text-xs">
+            <thead className="bg-zinc-50 border-b border-zinc-200 text-zinc-600 font-semibold">
               <tr>
-                <th className="py-4 px-5">رقم المكنة المدموغ</th>
-                <th className="py-4 px-5">الماركة والموديل</th>
-                <th className="py-4 px-5">المواصفات والفتيس</th>
-                <th className="py-4 px-5 text-left">سعر التكلفة</th>
-                <th className="py-4 px-5 text-left">سعر البيع</th>
-                <th className="py-4 px-5 text-center">ورق الإفراج</th>
-                <th className="py-4 px-5 text-center">الحالة</th>
-                <th className="py-4 px-5 text-center">إجراءات</th>
+                <th className="py-2.5 px-4">رقم المحرك</th>
+                <th className="py-2.5 px-4">الماركة والموديل</th>
+                <th className="py-2.5 px-4 text-left">التكلفة</th>
+                <th className="py-2.5 px-4 text-left">سعر البيع</th>
+                <th className="py-2.5 px-4 text-center">ورق الإفراج</th>
+                <th className="py-2.5 px-4 text-center">الحالة</th>
+                <th className="py-2.5 px-4 text-center">إجراءات</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-zinc-100">
               {filtered.map((eng) => {
                 const isAvailable = eng.status === 'available';
 
                 return (
-                  <tr key={eng.id} className="hover:bg-slate-50/70 transition-colors">
+                  <tr key={eng.id} className="hover:bg-zinc-50/80 transition-colors">
                     {/* Engine Number */}
-                    <td className="py-4 px-5">
-                      <span className="font-mono font-extrabold text-slate-900 text-sm block select-all">
+                    <td className="py-2.5 px-4">
+                      <span className="font-mono font-bold text-zinc-900 text-xs block select-all">
                         {eng.engineNumber}
                       </span>
-                      <span className="text-xs text-slate-400">{eng.modelYear || 'موديل قياسي'}</span>
+                      {eng.modelYear && <span className="text-[10px] text-zinc-400">{eng.modelYear}</span>}
                     </td>
 
                     {/* Brand & Model */}
-                    <td className="py-4 px-5">
-                      <span className="font-bold text-slate-900 text-sm block">{eng.carBrand}</span>
-                      <span className="text-slate-600 text-xs">{eng.carModel}</span>
+                    <td className="py-2.5 px-4">
+                      <span className="font-semibold text-zinc-900 block">{eng.carBrand}</span>
+                      <span className="text-zinc-500 text-[11px]">{eng.carModel}</span>
                     </td>
 
-                    {/* Specs */}
-                    <td className="py-4 px-5 text-slate-600 text-xs">
-                      <span className="font-semibold text-slate-700">{eng.engineCapacity || '1600cc'}</span>
-                      <span className="text-slate-400 block text-xs">{eng.transmissionType}</span>
-                    </td>
-
-                    {/* Wholesale Cost */}
-                    <td className="py-4 px-5 text-left font-mono text-slate-700 font-semibold text-sm">
+                    {/* Cost */}
+                    <td className="py-2.5 px-4 text-left font-mono text-zinc-600 font-medium">
                       {(eng.costPrice + eng.additionalCost).toLocaleString('en-US')} ج.م
                     </td>
 
                     {/* Selling Price */}
-                    <td className="py-4 px-5 text-left font-mono font-extrabold text-slate-900 text-base">
+                    <td className="py-2.5 px-4 text-left font-mono font-bold text-zinc-900">
                       {eng.sellingPrice.toLocaleString('en-US')} ج.م
                     </td>
 
                     {/* Customs Clearance Doc Button */}
-                    <td className="py-4 px-5 text-center">
+                    <td className="py-2.5 px-4 text-center">
                       {eng.hasClearanceDoc ? (
                         <button
                           type="button"
                           onClick={() => handleOpenDoc(eng)}
-                          className="inline-flex items-center gap-1 text-[11px] font-bold bg-amber-50 text-amber-900 border border-amber-200 px-2.5 py-1 rounded-lg hover:bg-amber-100 transition-colors cursor-pointer"
-                          title="عرض وطباعة ورقة الإفراج"
+                          className="inline-flex items-center gap-1 text-[11px] font-medium text-zinc-700 bg-zinc-100 hover:bg-zinc-200 px-2 py-0.5 rounded cursor-pointer transition-colors"
                         >
-                          <FileCheck2 className="w-3.5 h-3.5 text-amber-600" />
-                          <span>معاينة الإفراج</span>
+                          <FileCheck2 className="w-3 h-3 text-zinc-600" />
+                          <span>معاينة</span>
                         </button>
                       ) : (
                         <button
                           type="button"
                           onClick={() => handleOpenDoc(eng)}
-                          className="inline-flex items-center gap-1 text-[11px] text-slate-500 hover:text-slate-800 bg-slate-100 px-2 py-1 rounded-lg cursor-pointer"
+                          className="inline-flex items-center gap-1 text-[11px] text-zinc-400 hover:text-zinc-700 px-1.5 py-0.5 rounded cursor-pointer"
                         >
                           <Upload className="w-3 h-3" />
-                          <span>رفع ورق</span>
+                          <span>إرفاق</span>
                         </button>
                       )}
                     </td>
 
                     {/* Status */}
-                    <td className="py-3.5 px-4 text-center">
+                    <td className="py-2.5 px-4 text-center">
                       {isAvailable ? (
-                        <span className="inline-block text-[11px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
+                        <span className="inline-block text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
                           متاح
                         </span>
                       ) : (
-                        <span className="inline-block text-[11px] font-bold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full">
-                          تم البيع
+                        <span className="inline-block text-[11px] font-semibold text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded">
+                          مباع
                         </span>
                       )}
                     </td>
 
                     {/* Actions */}
-                    <td className="py-3.5 px-4 text-center">
+                    <td className="py-2.5 px-4 text-center">
                       <div className="flex items-center justify-center gap-1">
                         {isAvailable && (
                           <button
                             type="button"
                             onClick={() => onSellEngine(eng)}
-                            className="p-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg transition-colors cursor-pointer"
-                            title="بيع المكنة"
+                            className="p-1 bg-zinc-900 hover:bg-zinc-800 text-white rounded transition-colors cursor-pointer"
+                            title="بيع المحرك"
                           >
-                            <ShoppingCart className="w-3.5 h-3.5 text-amber-400" />
+                            <ShoppingCart className="w-3.5 h-3.5" />
                           </button>
                         )}
                         <button
@@ -271,7 +303,7 @@ export const EnginesList: React.FC<EnginesListProps> = ({
                             setEditingEngine(eng);
                             setIsFormModalOpen(true);
                           }}
-                          className="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg cursor-pointer"
+                          className="p-1 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded cursor-pointer"
                           title="تعديل"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
@@ -279,7 +311,7 @@ export const EnginesList: React.FC<EnginesListProps> = ({
                         <button
                           type="button"
                           onClick={() => handleDelete(eng)}
-                          className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg cursor-pointer"
+                          className="p-1 text-zinc-400 hover:text-rose-600 hover:bg-rose-50 rounded cursor-pointer"
                           title="حذف"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -292,8 +324,8 @@ export const EnginesList: React.FC<EnginesListProps> = ({
 
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="py-12 text-center text-slate-400 text-sm">
-                    لا توجد مواتير مسجلة تطابق البحث
+                  <td colSpan={7} className="py-8 text-center text-zinc-400 text-xs">
+                    لا توجد محركات مسجلة
                   </td>
                 </tr>
               )}

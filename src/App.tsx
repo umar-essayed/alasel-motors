@@ -49,9 +49,9 @@ const MainApp: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center font-sans">
-        <div className="w-8 h-8 border-2 border-amber-400 border-t-transparent rounded-full animate-spin mb-3" />
-        <p className="text-slate-400 text-xs font-display">الأصيل موتورز • تحميل النظام...</p>
+      <div className="min-h-screen bg-zinc-950 text-white flex flex-col items-center justify-center font-sans">
+        <div className="w-6 h-6 border-2 border-zinc-500 border-t-white rounded-full animate-spin mb-3" />
+        <p className="text-zinc-400 text-xs">الأصيل موتورز</p>
       </div>
     );
   }
@@ -72,7 +72,7 @@ const MainApp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-slate-900 selection:text-white">
+    <div className="min-h-screen bg-zinc-100/70 text-zinc-900 flex flex-col font-sans selection:bg-zinc-900 selection:text-white">
       {/* Top Navbar */}
       <Navbar
         onOpenSyncSettings={() => setIsSyncSettingsOpen(true)}
@@ -87,7 +87,7 @@ const MainApp: React.FC = () => {
         }}
       />
 
-      {/* Main Content Area: 100% Full Width */}
+      {/* Main Content Area */}
       <div className="flex-1 flex flex-col md:flex-row w-full">
         {/* Sidebar */}
         <Sidebar
@@ -101,8 +101,8 @@ const MainApp: React.FC = () => {
           onOpenAccountsModal={() => setIsAccountsModalOpen(true)}
         />
 
-        {/* Dynamic Tab Content */}
-        <main className="flex-1 p-5 sm:p-6 lg:p-8 min-w-0 w-full">
+        {/* Dynamic Tab Content (High Density) */}
+        <main className="flex-1 p-3.5 sm:p-4 lg:p-5 min-w-0 w-full">
           {activeTab === 'pos' && (
             <PointOfSaleView
               settings={settings}
