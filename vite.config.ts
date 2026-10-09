@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { firebaseAdminSyncPlugin } from './server/firebaseBridge'
+import { voiceTranscriptionPlugin } from './server/voiceBridge'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -9,6 +10,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     firebaseAdminSyncPlugin(),
+    voiceTranscriptionPlugin(),
   ],
   build: {
     outDir: 'dist',

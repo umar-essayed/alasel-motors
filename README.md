@@ -1,7 +1,7 @@
-# الأصيل موتورز 🏎️ (Al-Aseel Motors ERP & POS)
+# الوكالة موتورز 🏎️ (El-Wikalla Motors ERP & POS)
 
 > **منظومة متكاملة وخفيفة لإدارة محركات السيارات ومحلات قطع الغيار ونقاط البيع (Desktop + Web)**
-> مصممة وفق معايير B2B عالية الكثافة وهدوء تجربة الاستخدام، مع تخزين محلي كامل (Offline-First) ومزامنة سحابية اختيارية.
+> مصممة وفق معايير B2B عالية الكثافة وهدوء تجربة الاستخدام، مع تخزين محلي كامل (Offline-First)، استوديو مستندات جمركية، ومزامنة سحابية فائقة السرعة على Cloudflare R2 و Firebase.
 
 [![CI/CD Build](https://github.com/umar-essayed/alasel-motors/actions/workflows/build.yml/badge.svg)](https://github.com/umar-essayed/alasel-motors/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -106,4 +106,4 @@ npm run dist:all
 ## 📄 الترخيص (License)
 
 هذا المشروع مرخص تحت رخصة **MIT**.
-حقوق النشر © 2025-2026 الأصيل موتورز.
+حقوق النشر © 2026 الوكالة موتورز.

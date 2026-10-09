@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../db';
 import { Customer, SalesInvoice, PaymentReceipt, ShopSettings } from '../../types';
-import { Printer, X, FileText, User, Phone, MapPin, Receipt, ArrowDownRight, ArrowUpLeft } from 'lucide-react';
+import { Printer, X, FileText, Receipt, ArrowDownRight } from 'lucide-react';
 
 interface CustomerStatementModalProps {
   customer: Customer | null;
@@ -228,7 +228,7 @@ export const CustomerStatementModal: React.FC<CustomerStatementModalProps> = ({
               <div className="border-b border-dashed border-slate-400 w-44 mx-auto" />
             </div>
             <div>
-              <p className="mb-8 font-semibold">توقيع وختم إدارة محل الأصيل موتورز</p>
+              <p className="mb-8 font-semibold">توقيع وختم إدارة محل الوكالة موتورز</p>
               <div className="border-b border-dashed border-slate-400 w-44 mx-auto" />
             </div>
           </div>

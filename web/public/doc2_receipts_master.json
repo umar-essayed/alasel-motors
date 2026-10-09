@@ -1,0 +1,1654 @@
+[
+  {
+    "id": "rec_p0000_top",
+    "pageNumber": 1,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0000_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0000_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "000000",
+        "indic": "٠٠٠٠٠٠",
+        "confidence": 0.4,
+        "confidence_pct": "40%",
+        "notes": "صورة غير واضحة تحتوي على دوائر ونقاط مبعثرة وغير مكتملة كرقم محرك واضح."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0000_bottom",
+    "pageNumber": 1,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0000_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0000_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "69010895",
+        "indic": "٦٩٠١٠٨٩٥",
+        "confidence": 0.95,
+        "confidence_pct": "95%",
+        "notes": "تم قراءة النقاط كأصفار نقطية طبقاً لقواعد الفحص الجنائي وصياغة الرقم بشكل متصل بدون فواصل"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0001_top",
+    "pageNumber": 2,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0001_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0001_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "928242",
+        "indic": "٩٢٨٢٤٢",
+        "confidence": 0.95,
+        "confidence_pct": "95%",
+        "notes": "قراءة الأرقام المكتوبة بخط اليد بوضوح من اليسار لليمين كالأرقام السياقية المصرية"
+      },
+      {
+        "number": "928342",
+        "indic": "٩٢٨٣٤٢",
+        "confidence": 0.8,
+        "confidence_pct": "80%",
+        "notes": "احتمال بديل للرقم الثالث كونه قد يكون ثلاثة بدلاً من اثنين"
+      },
+      {
+        "number": "928142",
+        "indic": "٩٢٨١٤٢",
+        "confidence": 0.7,
+        "confidence_pct": "70%",
+        "notes": "احتمال بديل للرقم الثالث كونه قد يكون واحداً"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0001_bottom",
+    "pageNumber": 2,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0001_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0001_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "070252",
+        "indic": "٠٧٠٢٥٢",
+        "confidence": 0.95,
+        "confidence_pct": "95%",
+        "notes": "تم تطبيق قاعدة الصفر النقطي الصارمة، النقاط اعتبرت أصفاراً كاملة، والخمسة الدائرية ٥ ممیزة بدقة"
+      },
+      {
+        "number": "070253",
+        "indic": "٠٧٠٢٥٣",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "احتمال بديل للرقم الأخير مع الحفاظ على الأصفار النقطية"
+      },
+      {
+        "number": "070255",
+        "indic": "٠٧٠٢٥٥",
+        "confidence": 0.75,
+        "confidence_pct": "75%",
+        "notes": "احتمال بديل بناءً على تشابه بعض الحركات"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0002_top",
+    "pageNumber": 3,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0002_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0002_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "لا توجد أرقام واضحة مقروءة، الصورة تحتوي فقط على بقايا أحبار غير واضحة أو تالفة."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0002_bottom",
+    "pageNumber": 3,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0002_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0002_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "القصاصة فارغة تماماً من أي أرقام مكتوبة بخط اليد في خانة رقم الماتور (باستثناء الخطوط السفلية والمنقطة للدفتر)."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0003_top",
+    "pageNumber": 4,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0003_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0003_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "لا توجد أرقام مكتوبة بخط اليد في هذه القصاصة، فقط خطوط طباعية وأعمدة نقاط."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0003_bottom",
+    "pageNumber": 4,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0003_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0003_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "لا توجد أرقام واضحة ومقروءة بالكامل داخل الخانة، فقط خطوط ونقاط جدولية تنظيمية دون كتابة فعلية لرقم موتور."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0004_top",
+    "pageNumber": 5,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0004_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0004_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "لا توجد أرقام مكتوبة في هذه القصاصة، النص الموجود هو كلمة 'موتور' أو ما شابه مطبوعة أو مكتوبة بخط غير مقروء كأرقام."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0004_bottom",
+    "pageNumber": 5,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0004_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0004_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "15011",
+        "indic": "١٥٠١١",
+        "confidence": 0.65,
+        "confidence_pct": "65%",
+        "notes": "تحليل الأرقام المكتوبة بخط اليد مع مراعاة خصائص المحاسب المصري"
+      },
+      {
+        "number": "1501",
+        "indic": "١٥٠١",
+        "confidence": 0.5,
+        "confidence_pct": "50%",
+        "notes": "تم استبعاد الأجزاء غير الواضحة"
+      },
+      {
+        "number": "5011",
+        "indic": "٥٠١١",
+        "confidence": 0.4,
+        "confidence_pct": "40%",
+        "notes": "احتمال استبدال الرقم الأول بناءً على التباين"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0005_top",
+    "pageNumber": 6,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0005_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0005_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "5",
+        "indic": "٥",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "الرقم الواضح عبارة عن خمسة دائرية مفرغة (5) وفقاً لقواعد الفحص الجنائي"
+      },
+      {
+        "number": "50",
+        "indic": "٥٠",
+        "confidence": 0.5,
+        "confidence_pct": "50%",
+        "notes": "احتمال وجود أثر لرقم أو نقطة صفر تالية"
+      },
+      {
+        "number": "51",
+        "indic": "٥١",
+        "confidence": 0.3,
+        "confidence_pct": "30%",
+        "notes": "احتمال بديل لعلامة سفلية"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0005_bottom",
+    "pageNumber": 6,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0005_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0005_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "115225",
+        "indic": "١١٥٢٢٥",
+        "confidence": 0.88,
+        "confidence_pct": "88%",
+        "notes": "تم تحليل الأرقام بناءً على قواعد التدقيق الفني للدفاتر المصرية"
+      },
+      {
+        "number": "115325",
+        "indic": "١١٥٣٢٥",
+        "confidence": 0.75,
+        "confidence_pct": "75%",
+        "notes": "احتمال بديل للرقم الأوسط بناءً على تباين الحبر"
+      },
+      {
+        "number": "115725",
+        "indic": "١١٥٧٢٥",
+        "confidence": 0.65,
+        "confidence_pct": "65%",
+        "notes": "احتمال ثالث محتمل للرقم الأوسط"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0006_top",
+    "pageNumber": 7,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0006_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0006_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "الخانة فارغة تماماً ولا تحتوي على أي أرقام مكتوبة بخط اليد"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0006_bottom",
+    "pageNumber": 7,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0006_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0006_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "لا توجد أرقام واضحة في الصورة المقدمة، فقط خط نقاط علوي وبعض الكلمات أو الحروف غير العددية."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0007_top",
+    "pageNumber": 8,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0007_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0007_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "097719",
+        "indic": "٠٩٧٧١٩",
+        "confidence": 0.95,
+        "confidence_pct": "95%",
+        "notes": "تم تطبيق قاعدة الصفر النقطي الصارمة، حيث تعتبر النقطة في البداية صفراً كاملاً (٠) ليكون الرقم الصافي ٠٩٧٧١٩ دون أي فواصل"
+      },
+      {
+        "number": "597719",
+        "indic": "٥٩٧٧١٩",
+        "confidence": 0.03,
+        "confidence_pct": "3%",
+        "notes": "احتمال بديل في حال اعتبرت النقطة خطأ مطبعياً أو شكلاً آخر"
+      },
+      {
+        "number": "97719",
+        "indic": "٩٧٧١٩",
+        "confidence": 0.02,
+        "confidence_pct": "2%",
+        "notes": "احتمال بتجاهل النقطة تماماً"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0007_bottom",
+    "pageNumber": 8,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0007_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0007_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "6857",
+        "indic": "٦٨٥٧",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "قراءة الأرقام الظاهرة بخط اليد مع اعتبار الدائرة خَمْسَة (٥) أو صفراً حسب سياق الأرقام المتسلسلة، والأرقام تقرأ يميناً لليسار لتصبح ٦٨٥٧."
+      },
+      {
+        "number": "6807",
+        "indic": "٦٨٠٧",
+        "confidence": 0.75,
+        "confidence_pct": "75%",
+        "notes": "احتمال قراءة الدائرة الوسطى كصفر نقطي مفرغ طبقاً لقواعد الأرقام المصرية."
+      },
+      {
+        "number": "6859",
+        "indic": "٦٨٥٩",
+        "confidence": 0.6,
+        "confidence_pct": "60%",
+        "notes": "احتمال بديل للرقم الأخير كحرف V أو تسعة هندية."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0008_top",
+    "pageNumber": 9,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0008_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0008_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "3",
+        "indic": "٣",
+        "confidence": 0.4,
+        "confidence_pct": "40%",
+        "notes": "صورة جزئية جداً تظهر أجزاء من رقم ٣ أو رقم مشابه"
+      },
+      {
+        "number": "2",
+        "indic": "٢",
+        "confidence": 0.3,
+        "confidence_pct": "30%",
+        "notes": " احتمال وجود رقم ٢ مقطوع الأطراف"
+      },
+      {
+        "number": "0",
+        "indic": "٠",
+        "confidence": 0.2,
+        "confidence_pct": "20%",
+        "notes": "احتمال كون الحزء الظاهر جزء من صفر أو نقطة تنظيمية"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0008_bottom",
+    "pageNumber": 9,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0008_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0008_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "لا توجد أرقام مكتوبة في هذه القصاصة، فقط خطوط نقاطية مطبوعة للفصل وأثر حبر خافت غير مقروء."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0009_top",
+    "pageNumber": 10,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0009_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0009_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "القصاصة تحتوي فقط على خطوط شبكية/فواصل رأسية من الدفتر ولا توجد أي أرقام مكتوبة أو مدونة لتدقيقها."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0009_bottom",
+    "pageNumber": 10,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0009_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0009_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "لا توجد أرقام مكتوبة أو مدونة في هذه القصاصة، الصورة تحتوي فقط على خطوط جدول عمودية منقطة (خطوط فاصلة في الدفتر) بدون أي كتابة يدوية تخص رقم الموتور."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0010_top",
+    "pageNumber": 11,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0010_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0010_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "القصاصة لا تحتوي على أرقام واضحة ومقروءة لخانة رقم الماتور، بل تحتوي فقط على خطوط إرشادية منقطة وحبر غير واضح في الأسفل."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0010_bottom",
+    "pageNumber": 11,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0010_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0010_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "594442",
+        "indic": "٥٩٤٤٤٢",
+        "confidence": 0.88,
+        "confidence_pct": "88%",
+        "notes": "الرقم يظهر بوضوح مكون من ست خانات تبدأ بالخمسة الدائرية تليها تكرارات ل digit الأربعة ورقم اثنين في النهاية"
+      },
+      {
+        "number": "594443",
+        "indic": "٥٩٤٤٤٣",
+        "confidence": 0.7,
+        "confidence_pct": "70%",
+        "notes": "احتمال بديل للرقم الأخير نظراً لتقوس طرفه الأيمن"
+      },
+      {
+        "number": "594445",
+        "indic": "٥٩٤٤٤٥",
+        "confidence": 0.6,
+        "confidence_pct": "60%",
+        "notes": "احتمال بديل بافتراض أن الرقم الأخير عبارة عن خمسة دائرية مقلوبة أو مشابهة لما سبق"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0011_top",
+    "pageNumber": 12,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0011_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0011_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "20713112",
+        "indic": "٢٠٧١٣١١٢",
+        "confidence": 0.9,
+        "confidence_pct": "90%",
+        "notes": "قراءة أرقام الموتور بناءً على الخط اليدوي الواضح وتطبيق قواعد التدقيق"
+      },
+      {
+        "number": "2071311",
+        "indic": "٢٠٧١٣١١",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "احتمال اقتطاع الرقم الأخير في جهة اليمين"
+      },
+      {
+        "number": "207131122",
+        "indic": "٢٠٧١٣١١٢٢",
+        "confidence": 0.8,
+        "confidence_pct": "80%",
+        "notes": "احتمال تكرار الرقم الأخير أو وجود علامة إضافية"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0011_bottom",
+    "pageNumber": 12,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0011_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0011_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "72120446",
+        "indic": "٧٢١٢٠٤٤٦",
+        "confidence": 0.95,
+        "confidence_pct": "95%",
+        "notes": "تم قراءة الأرقام مع استبدال الفاصلة أو الشرطة بنقطة صفر طبقاً لقواعد الصفر النقطي الصارمة"
+      },
+      {
+        "number": "72120546",
+        "indic": "٧٢١٢٠٥٤٦",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "احتمال قراءة الرقم الأوسط كخمسة دائرية ٥"
+      },
+      {
+        "number": "72120426",
+        "indic": "٧٢١٢٠٤٢٦",
+        "confidence": 0.75,
+        "confidence_pct": "75%",
+        "notes": "احتمال بديل لقراءة الرقم قبل الأخير كاثنان"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0012_top",
+    "pageNumber": 13,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0012_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0012_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "28666",
+        "indic": "٢٨٦٦٦",
+        "confidence": 0.9,
+        "confidence_pct": "90%",
+        "notes": "الرقم الظاهر في أسفل اليمين مكتوب بخط واضح طبقاً لقواعد الفحص"
+      },
+      {
+        "number": "2866",
+        "indic": "٢٨٦٦",
+        "confidence": 0.05,
+        "confidence_pct": "5%",
+        "notes": "احتمال قطع الرقم الأخير"
+      },
+      {
+        "number": "28665",
+        "indic": "٢٨٦٦٥",
+        "confidence": 0.05,
+        "confidence_pct": "5%",
+        "notes": "احتمال التباس الرقم الأخير"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0012_bottom",
+    "pageNumber": 13,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0012_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0012_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "472180",
+        "indic": "٤٧٢١٨٠",
+        "confidence": 0.95,
+        "confidence_pct": "95%",
+        "notes": "تم قراءة الأرقام من اليسار لليمين بناءً على خط الكتابة: ٤ (4)، ٧ (7)، ٢ (2)، ١ (1)، ٨ (8)، والنقطة في اليمين كصفر نقطي صارم ٠ (0)"
+      },
+      {
+        "number": "47218",
+        "indic": "٤٧٢١٨",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "احتمال استبعاد النقطة الطرفية كعلامة ترقيم أو نهاية سطر"
+      },
+      {
+        "number": "4721800",
+        "indic": "٤٧٢١٨٠٠",
+        "confidence": 0.7,
+        "confidence_pct": "70%",
+        "notes": "احتمال وجود نقطة تالية مكملة للأصفار البادئة/الختامية"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0013_top",
+    "pageNumber": 14,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0013_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0013_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "12",
+        "indic": "١٢",
+        "confidence": 0.4,
+        "confidence_pct": "40%",
+        "notes": "صورة غير واضحة وتظهر أجزاء علوية فقط لأرقام قد تكون ١٢"
+      },
+      {
+        "number": "21",
+        "indic": "٢١",
+        "confidence": 0.3,
+        "confidence_pct": "30%",
+        "notes": "احتمال عكس الرقم العلوي الظاهر"
+      },
+      {
+        "number": "1",
+        "indic": "١",
+        "confidence": 0.2,
+        "confidence_pct": "20%",
+        "notes": "الجزء الظاهر في أقصى اليمين يعبر عن رقم منفرد"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0013_bottom",
+    "pageNumber": 14,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0013_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0013_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "9645558",
+        "indic": "٩٦٤٥٥٥٨",
+        "confidence": 0.95,
+        "confidence_pct": "95%",
+        "notes": "تم قراءة الأرقام بدقة: ٩, ٦, ٤, والأرقام الثلاثة المتتالية هي خمسات دائرية الشكل ٥٥٥، يليه الرقم ٨"
+      },
+      {
+        "number": "9645508",
+        "indic": "٩٦٤٥٥٠٨",
+        "confidence": 0.03,
+        "confidence_pct": "3%",
+        "notes": "احتمال بديل بافتراض أن أحد الحلقات قد تكون صفراً"
+      },
+      {
+        "number": "9640558",
+        "indic": "٩٦٤٠٥٥٨",
+        "confidence": 0.02,
+        "confidence_pct": "2%",
+        "notes": "احتمال ضعيف بوجود صفر بين الأرقام"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0014_top",
+    "pageNumber": 15,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0014_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0014_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "لم يتم كشف أرقام",
+        "indic": "",
+        "confidence": 0.1,
+        "confidence_pct": "10%",
+        "notes": ""
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0014_bottom",
+    "pageNumber": 15,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0014_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0014_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "4405440",
+        "indic": "٤٤٠٥٤٤٠",
+        "confidence": 0.95,
+        "confidence_pct": "95%",
+        "notes": "تم الالتزام بقاعدة الصفر النقطي الصارمة، النقطة في البداية والنهاية هي أصفار حقيقية ٠"
+      },
+      {
+        "number": "440544",
+        "indic": "٤٤٠٥٤٤",
+        "confidence": 0.03,
+        "confidence_pct": "3%",
+        "notes": "احتمال تجاهل الصفر الطرفي"
+      },
+      {
+        "number": "44544",
+        "indic": "٤٤٥٤٤",
+        "confidence": 0.02,
+        "confidence_pct": "2%",
+        "notes": "احتمال قراءة النقطة كعلامة ترقيم وليست صفراً"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0015_top",
+    "pageNumber": 16,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0015_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0015_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "10251",
+        "indic": "١٠٢٥١",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "صورة لكلمة مكتوبة وليست أرقام بحتة، تم قراءتها كحروف عربية أو تشابهها مع الأرقام"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0015_bottom",
+    "pageNumber": 16,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0015_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0015_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "1",
+        "indic": "١",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "صورة نصية لكلمة 'أكتوبر' متبوعة برقم واحد، وليست رقماً مسلسلاً أو رقم موتور"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0016_top",
+    "pageNumber": 17,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0016_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0016_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "290213",
+        "indic": "٢٩٠٢١٣",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "تم قراءة الرقم بتطبيق قاعدة الصفر النقطي وتجاوز الشوائب الباهتة"
+      },
+      {
+        "number": "295213",
+        "indic": "٢٩٥٢١٣",
+        "confidence": 0.7,
+        "confidence_pct": "70%",
+        "notes": "احتمال بديل في حال اعتبار العلامة الوسطى خمسة دائرية"
+      },
+      {
+        "number": "291213",
+        "indic": "٢٩١٢١٣",
+        "confidence": 0.6,
+        "confidence_pct": "60%",
+        "notes": "احتمال ثالث لقراءة الرقم الأوسط كواحد عربي"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0016_bottom",
+    "pageNumber": 17,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0016_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0016_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "124950082",
+        "indic": "١٢٤٩٥٠٠٨٢",
+        "confidence": 0.95,
+        "confidence_pct": "95%",
+        "notes": "تم تحليل الرقم العلوي بدقة مع تطبيق قاعدة الصفر النقطي والخمسة الدائرية"
+      },
+      {
+        "number": "124440064",
+        "indic": "١٢٤٤٤٠٠٦٤",
+        "confidence": 0.9,
+        "confidence_pct": "90%",
+        "notes": "تم قراءة الرقم السفلي مع اعتبار التكرار والاصفار النقطية الوسطى"
+      },
+      {
+        "number": "124950082",
+        "indic": "١٢٤٩٥٨٢",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "احتمال بديل لقراءة النقاط الوسطى كأصفار مؤكدة طبقاً للقواعد الصارمة"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0017_top",
+    "pageNumber": 18,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0017_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0017_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "لا توجد أرقام واضحة في خانة رقم الماتور ضمن القصاصة المقدمة؛ الصورة تالفة أو فارغة من بيانات الأرقام المطلوبة."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0017_bottom",
+    "pageNumber": 18,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0017_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0017_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "717856",
+        "indic": "٧١٧٨٥٦",
+        "confidence": 0.88,
+        "confidence_pct": "88%",
+        "notes": "تم تحليل الخط اليدوي بعناية وقراءة الأرقام مع تطبيق القواعد بدقة"
+      },
+      {
+        "number": "717850",
+        "indic": "٧١٧٨٥٠",
+        "confidence": 0.08,
+        "confidence_pct": "8%",
+        "notes": "احتمال بديل للرقم الأخير"
+      },
+      {
+        "number": "71785",
+        "indic": "٧١٧٨٥",
+        "confidence": 0.04,
+        "confidence_pct": "4%",
+        "notes": "احتمال اختصار الرقم الأخير"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0018_top",
+    "pageNumber": 19,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0018_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0018_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "لا توجد أرقام واضحة ومقروءة ضمن خانة رقم الماتور في هذه القصاصة، فقط آثار كتابة غير مفهومة وشطب."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0018_bottom",
+    "pageNumber": 19,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0018_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0018_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "4662789",
+        "indic": "٤٦٦٢٧٨٩",
+        "confidence": 0.9,
+        "confidence_pct": "90%",
+        "notes": "تم قراءة الأرقام المكتوبة بخط اليد بدقة وفقاً للقواعد الصارمة ودون فواصل"
+      },
+      {
+        "number": "4662789",
+        "indic": "٤٦٦٢٧٨٩",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "احتمال ثانٍ مطابق بناءً على تحليل الخط"
+      },
+      {
+        "number": "4662789",
+        "indic": "٤٦٦٢٧٨٩",
+        "confidence": 0.8,
+        "confidence_pct": "80%",
+        "notes": "احتمال ثالث مطابق بناءً على تدقيق الأشكال الهندسية للأرقام الهندية"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0019_top",
+    "pageNumber": 20,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0019_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0019_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "741098",
+        "indic": "٧٤١٠٩٨",
+        "confidence": 0.95,
+        "confidence_pct": "95%",
+        "notes": "تم قراءة النقطة أو الفاصلة بين الواحد والتسعة كصفر طبقاً لقاعدة الصفر النقطي الصارمة (٧٤١٠٩٨)"
+      },
+      {
+        "number": "741098",
+        "indic": "٧٤١٠٩٨",
+        "confidence": 0.03,
+        "confidence_pct": "3%",
+        "notes": "احتمال قراءة النقطة كعلامة فاصلة تقليدية"
+      },
+      {
+        "number": "741098",
+        "indic": "٧٤١٠٩٨",
+        "confidence": 0.02,
+        "confidence_pct": "2%",
+        "notes": "احتمال قراءة العلامة كفصلة عشرية"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0019_bottom",
+    "pageNumber": 20,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0019_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0019_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "القصاصة لا تحتوي على أرقام واضحة ومقروءة لخانة رقم الماتور، فقط خطوط مستقيمة وبعض الآثار الباهتة غير المكتملة"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0020_top",
+    "pageNumber": 21,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0020_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0020_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "القصاصة لا تحتوي على أرقام واضحة ومقروءة ضمن خانة رقم الماتور، بل تظهر بعض الخطوط والنقاط الباهتة وغير المكتملة."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0020_bottom",
+    "pageNumber": 21,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0020_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0020_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "0",
+        "indic": "٠",
+        "confidence": 0.4,
+        "confidence_pct": "40%",
+        "notes": "صورة غير واضحة تحتوي على بعض الآثار المبعثرة دون رقم محدد واضح"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0021_top",
+    "pageNumber": 22,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0021_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0021_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "115601",
+        "indic": "١١٥٦٠١",
+        "confidence": 0.4,
+        "confidence_pct": "40%",
+        "notes": "صورة غير واضحة أو مقلوبة، النص الظاهر يبدو كحروف أو أرقام غير مكتملة"
+      },
+      {
+        "number": "1156",
+        "indic": "١١٥٦",
+        "confidence": 0.3,
+        "confidence_pct": "30%",
+        "notes": "قراءة جزئية محتملة للأرقام الواضحة"
+      },
+      {
+        "number": "000",
+        "indic": "٠٠٠",
+        "confidence": 0.1,
+        "confidence_pct": "10%",
+        "notes": "تعذر قراءة رقم الماتور بوضوح تام بسبب تشوش الصورة"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0021_bottom",
+    "pageNumber": 22,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0021_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0021_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "46",
+        "indic": "٤٦",
+        "confidence": 0.5,
+        "confidence_pct": "50%",
+        "notes": "قراءة جزئية للأرقام الواضحة على اليمين (٤ و ٦) وفقاً لمعايير تدقيق الخطوط"
+      },
+      {
+        "number": "462",
+        "indic": "٤٦٢",
+        "confidence": 0.4,
+        "confidence_pct": "40%",
+        "notes": "احتمال وجود رقم إضافي يسار الأرقام الظاهرة"
+      },
+      {
+        "number": "6",
+        "indic": "٦",
+        "confidence": 0.3,
+        "confidence_pct": "30%",
+        "notes": "قراءة رقم واحد فقط في حال اعتبار باقي الحبر غير واضح"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0022_top",
+    "pageNumber": 23,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0022_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0022_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "الخنة فارغة تماماً ولا تحتوي على أية أرقام مكتوبة بخط اليد، بل تظهر فقط خطوط الجدول والآثار المطبوعة."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0022_bottom",
+    "pageNumber": 23,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0022_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0022_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "18083",
+        "indic": "١٨٠٨٣",
+        "confidence": 0.9,
+        "confidence_pct": "90%",
+        "notes": "تمت قراءة الرقم الرأسي مع تطبيق قاعدة الصفر النقطي"
+      },
+      {
+        "number": "18083",
+        "indic": "١٨٠٨٣",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "احتمال وجود فاصل أو نقطة فاصلة حسب السياق المحاسبي"
+      },
+      {
+        "number": "18583",
+        "indic": "١٨٥٨٣",
+        "confidence": 0.7,
+        "confidence_pct": "70%",
+        "notes": "احتمال قراءة النقطة كخمسة دائرية"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0023_top",
+    "pageNumber": 24,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0023_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0023_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "21",
+        "indic": "٢١",
+        "confidence": 0.65,
+        "confidence_pct": "65%",
+        "notes": "الرقم الظاهر في الخانة يشبه الرقم ٢١ بخط اليد مع وجود آثار نقاط مطبوعة وخانة شبه فارغة"
+      },
+      {
+        "number": "12",
+        "indic": "١٢",
+        "confidence": 0.2,
+        "confidence_pct": "20%",
+        "notes": "احتمال عكس اتجاه قراءة الرقم المكتوب بخط اليد"
+      },
+      {
+        "number": "2",
+        "indic": "٢",
+        "confidence": 0.15,
+        "confidence_pct": "15%",
+        "notes": "احتمال أن يكون الرقم عبارة عن خانة واحدة فقط"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0023_bottom",
+    "pageNumber": 24,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0023_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0023_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "1",
+        "indic": "١",
+        "confidence": 0.4,
+        "confidence_pct": "40%",
+        "notes": "صورة جزئية جداً لا تُظهر سوى جزء من رقم واحد (مثل الواحد الرأسي)، ويصعب الجزم بالرقم كاملاً."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0024_top",
+    "pageNumber": 25,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0024_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0024_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "القصاصة لا تحتوي على أرقام واضحة لخانة رقم الماتور، بل تظهر خطا أفقيا مطبوعا وبعض الخطوط غير الواضحة في الأسفل."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0024_bottom",
+    "pageNumber": 25,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0024_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0024_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "القصاصة لا تحتوي على أرقام محركات، بل نص مكتوب بخط اليد يبدو وكأنه توقيع أو كلمة (مثل 'فريد' أو مشابه) وليست خانة أرقام موتور."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0025_top",
+    "pageNumber": 26,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0025_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0025_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "لا توجد أرقام واضحة ومقروءة في الصورة المقدمة، فقط خطوط وشخبطة غير واضحة المعالم"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0025_bottom",
+    "pageNumber": 26,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0025_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0025_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "القصاعة لا تحتوي على أرقام واضحة ومقروءة يمكن الجزم بها وفقاً للقواعد الصارمة."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0026_top",
+    "pageNumber": 27,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0026_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0026_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "33",
+        "indic": "٣٣",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "صورة مكبرة لخط يدوي يظهر به الرقم ٣.٣ أو 3.3 بدقة ضمن الخانة المخصصة"
+      },
+      {
+        "number": "33",
+        "indic": "٣٣",
+        "confidence": 0.1,
+        "confidence_pct": "10%",
+        "notes": "احتمال بديل لتبديل الفاصلة أو النقطة العشرية"
+      },
+      {
+        "number": "33",
+        "indic": "٣٣",
+        "confidence": 0.05,
+        "confidence_pct": "5%",
+        "notes": "احتمال تجاهل العلامة الوسطى كلياً"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0026_bottom",
+    "pageNumber": 27,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0026_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0026_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "القصاصة لا تحتوي على أرقام واضحة لخانة رقم الماتور، فقط خطوط رأسية وبقايا حبر غير مقروءة"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0027_top",
+    "pageNumber": 28,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0027_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0027_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "الخانة فارغة ولا توجد أي أرقام واضحة تدل على رقم الماتور ضمن القصاصة المقدمة"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0027_bottom",
+    "pageNumber": 28,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0027_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0027_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "53",
+        "indic": "٥٣",
+        "confidence": 0.85,
+        "confidence_pct": "85%",
+        "notes": "صورة جزئية تظهر رقم خمسة (٥) ورقم ثلاثة (٣) بوضوح داخل خانة المرور دون علامات أخرى"
+      },
+      {
+        "number": "35",
+        "indic": "٣٥",
+        "confidence": 0.7,
+        "confidence_pct": "70%",
+        "notes": "احتمال عكس اتجاه قراءة الأجزاء المرئية"
+      },
+      {
+        "number": "530",
+        "indic": "٥٣٠",
+        "confidence": 0.6,
+        "confidence_pct": "60%",
+        "notes": "احتمال وجود صفر نقطي تكميلي على اليمين بناءً على سياق دفاتر المرور"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0028_top",
+    "pageNumber": 29,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0028_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0028_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "لا توجد أرقام واضحة في خانة رقم الماتور، فقط كلمة 'خبيش' أو نص غير واضح مع وجود علامات شرطية خافتة."
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0028_bottom",
+    "pageNumber": 29,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0028_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0028_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "1",
+        "indic": "١",
+        "confidence": 0.4,
+        "confidence_pct": "40%",
+        "notes": "صورة جزئية تظهر فيها خانة واحدة بوضوح (رقم 1 جهة اليسار) مع بقايا خطوط وأرقام غير مكتملة"
+      },
+      {
+        "number": "11",
+        "indic": "١١",
+        "confidence": 0.25,
+        "confidence_pct": "25%",
+        "notes": "احتمال وجود رقمين متسلسلين بناءً على الخطوط الرأسية المتاحة"
+      },
+      {
+        "number": "15",
+        "indic": "١٥",
+        "confidence": 0.15,
+        "confidence_pct": "15%",
+        "notes": "احتمال تضمن الخانات المجاورة لأجزاء من رقم 5 دائري"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0029_top",
+    "pageNumber": 30,
+    "receiptType": "علوية (أعلى الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0029_top_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0029_top_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "القصاعة لا تحتوي على أرقام واضحة ومقروءة لخانة رقم الماتور ضمن القواعد المحددة"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "هيونداي فيرنا",
+    "saleDate": "2024/07/14",
+    "status": "pending"
+  },
+  {
+    "id": "rec_p0029_bottom",
+    "pageNumber": 30,
+    "receiptType": "سفلية (أسفل الصفحة)",
+    "imageUrl": "/doc2_slices/rec_p0029_bottom_full.jpg",
+    "patchUrl": "/doc2_slices/rec_p0029_bottom_patch.jpg",
+    "top3Candidates": [
+      {
+        "number": "",
+        "indic": "",
+        "confidence": 0.0,
+        "confidence_pct": "0%",
+        "notes": "لا توجد أرقام واضحة في الصورة المقصوصة، فقط أجزاء غير مكتملة وعلامات متفرقة"
+      }
+    ],
+    "verifiedEngineNumber": "",
+    "customerName": "",
+    "engineCategory": "دايو لانوس",
+    "saleDate": "2024/07/15",
+    "status": "pending"
+  }
+]

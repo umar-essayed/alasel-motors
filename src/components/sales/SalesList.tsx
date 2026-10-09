@@ -12,10 +12,13 @@ import {
   RotateCcw,
   AlertCircle,
   Tag,
+  CheckCircle2,
+  FileBadge,
 } from 'lucide-react';
 import { SaleInvoiceModal } from './SaleInvoiceModal';
 import { ClearanceDocModal } from '../engines/ClearanceDocModal';
 import { CreateSaleModal } from './CreateSaleModal';
+import { ClearanceHandoverModal } from './ClearanceHandoverModal';
 
 interface SalesListProps {
   settings: ShopSettings;
@@ -26,6 +29,9 @@ export const SalesList: React.FC<SalesListProps> = ({ settings }) => {
   const [selectedInvoice, setSelectedInvoice] = useState<SalesInvoice | null>(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [viewingDoc, setViewingDoc] = useState<ClearanceDoc | null>(null);
+
+  // Clearance handover modal state
+  const [handoverInvoice, setHandoverInvoice] = useState<SalesInvoice | null>(null);
 
   // Return modal state
   const [invoiceToReturn, setInvoiceToReturn] = useState<SalesInvoice | null>(null);
@@ -203,7 +209,7 @@ export const SalesList: React.FC<SalesListProps> = ({ settings }) => {
       s.status === 'returned' ? 'مرتجع' : 'سارية',
     ]);
 
-    exportToCsv('فواتير_مبيعات_الأصيل', headers, rows);
+    exportToCsv('فواتير_مبيعات_الوكالة', headers, rows);
   };
 
   return (
@@ -307,7 +313,17 @@ export const SalesList: React.FC<SalesListProps> = ({ settings }) => {
                   <tr key={inv.id} className={`hover:bg-zinc-50/80 transition-colors ${isReturned ? 'bg-zinc-50/50 opacity-70' : ''}`}>
                     <td className="py-2.5 px-4 font-mono font-bold text-zinc-900">
                       <div>{inv.invoiceNumber}</div>
-                      <span className="text-[10px] text-zinc-400 font-sans">{inv.date}</span>
+                      <span className="text-[10px] text-zinc-400 font-sans block">{inv.date}</span>
+                      {inv.clearanceDelivered ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-sans mt-0.5">
+                          <CheckCircle2 className="w-2.5 h-2.5" />
+                          <span>سُلِّم الورق ({inv.clearanceRecipientName || 'المشتري'})</span>
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-[10px] text-zinc-500 bg-zinc-100 px-1.5 py-0.5 rounded font-sans mt-0.5">
+                          <span>الورق بالمحل لم يُسلَّم</span>
+                        </span>
+                      )}
                     </td>
 
                     <td className="py-2.5 px-4">
@@ -377,6 +393,19 @@ export const SalesList: React.FC<SalesListProps> = ({ settings }) => {
 
                         {!isReturned && (
                           <>
+                            <button
+                              type="button"
+                              onClick={() => setHandoverInvoice(inv)}
+                              className={`p-1 rounded cursor-pointer ${
+                                inv.clearanceDelivered
+                                  ? 'text-emerald-600 hover:bg-emerald-50'
+                                  : 'text-zinc-400 hover:text-blue-600 hover:bg-blue-50'
+                              }`}
+                              title={inv.clearanceDelivered ? 'تعديل بيانات تسليم الورق' : 'تسليم أوراق الإفراج الجمركي للمشتري'}
+                            >
+                              <FileBadge className="w-3.5 h-3.5" />
+                            </button>
+
                             <button
                               type="button"
                               onClick={() => {
@@ -538,6 +567,13 @@ export const SalesList: React.FC<SalesListProps> = ({ settings }) => {
           onClose={() => setViewingDoc(null)}
         />
       )}
+
+      <ClearanceHandoverModal
+        invoice={handoverInvoice}
+        isOpen={Boolean(handoverInvoice)}
+        onClose={() => setHandoverInvoice(null)}
+        onSaved={() => {}}
+      />
 
       <CreateSaleModal
         isOpen={isCreateOpen}

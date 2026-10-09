@@ -2,9 +2,9 @@
   "name": "alasel-motors",
   "private": true,
   "version": "1.0.0",
-  "description": "الأصيل موتورز — نظام إدارة محركات السيارات والمواتير",
+  "description": "الوكالة موتورز — نظام إدارة محركات السيارات والمواتير",
   "author": {
-    "name": "Al-Aseel Motors",
+    "name": "El-Wikalla Motors",
     "email": "info@alasel-motors.com"
   },
   "desktopName": "alasel-motors",
@@ -20,9 +20,12 @@
     "dist:win": "npm run build:all && electron-builder --win",
     "dist:all": "npm run build:all && electron-builder --linux --win",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "web:dev": "npm --prefix web run dev",
+    "web:build": "npm --prefix web run build"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1147.0",
     "@tailwindcss/vite": "^4.3.3",
     "clsx": "^2.1.1",
     "dexie": "^4.4.6",
@@ -52,9 +55,9 @@
     "wait-on": "^8.0.3"
   },
   "build": {
-    "appId": "com.alasel.motors",
-    "productName": "الأصيل موتورز",
-    "copyright": "Copyright © 2025 Al-Aseel Motors",
+    "appId": "com.elwikalla.motors",
+    "productName": "الوكالة موتورز",
+    "copyright": "Copyright © 2026 El-Wikalla Motors",
     "icon": "public/logo.png",
     "directories": {
       "output": "release",
@@ -68,8 +71,18 @@
     ],
     "linux": {
       "target": [
-        { "target": "AppImage", "arch": ["x64"] },
-        { "target": "deb", "arch": ["x64"] }
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
       ],
       "category": "Office",
       "synopsis": "Al-Aseel Motors Management System",
@@ -78,18 +91,25 @@
     },
     "win": {
       "target": [
-        { "target": "nsis", "arch": ["x64"] }
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
       ],
       "icon": "public/logo.png"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "installerLanguages": ["ar-SA"],
+      "installerLanguages": [
+        "ar-SA"
+      ],
       "language": "1025",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "الأصيل موتورز"
+      "shortcutName": "الوكالة موتورز"
     }
   }
 }

@@ -15,7 +15,7 @@ function createWindow() {
     height: 900,
     minWidth: 1024,
     minHeight: 700,
-    title: 'الأصيل موتورز',
+    title: 'الوكالة موتورز',
     icon: path.join(__dirname, '../public/logo.png'),
     webPreferences: {
       nodeIntegration: false,

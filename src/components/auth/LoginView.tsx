@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { Account } from '../../types';
 import { ArrowLeft, Delete, AlertCircle } from 'lucide-react';
+import { BrandLogo } from '../common/BrandLogo';
 
 export const LoginView: React.FC = () => {
   const { accounts, loginWithPin } = useAuth();
@@ -62,21 +63,17 @@ export const LoginView: React.FC = () => {
   }, [selectedAccount, pin]);
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col justify-center items-center px-4 py-8 select-none">
+    <div className="min-h-screen bg-black text-zinc-100 flex flex-col justify-center items-center px-4 py-8 select-none">
       <div className="text-center mb-6">
-        <img
-          src="/logo.png"
-          alt="الأصيل موتورز"
-          className="w-16 h-16 mx-auto object-contain mb-3"
-        />
+        <BrandLogo className="w-16 h-16 mx-auto object-contain mb-3" />
         <h1 className="text-xl font-bold tracking-tight text-white">
-          الأصيل موتورز
+          الوكالة موتورز
         </h1>
         <p className="text-xs text-zinc-400 mt-0.5">نظام إدارة المحركات والمبيعات</p>
       </div>
 
       {!selectedAccount ? (
-        <div className="w-full max-w-sm bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-lg">
+        <div className="w-full max-w-sm bg-zinc-950 border border-zinc-800/80 rounded-2xl p-5 shadow-2xl">
           <p className="text-xs font-semibold text-zinc-400 text-center mb-4">
             اختر المستخدم
           </p>
@@ -111,7 +108,7 @@ export const LoginView: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="w-full max-w-xs bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-lg">
+        <div className="w-full max-w-xs bg-zinc-950 border border-zinc-800/80 rounded-2xl p-6 shadow-2xl">
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-zinc-800">
             <div>
               <h3 className="font-bold text-white text-sm">{selectedAccount.name}</h3>

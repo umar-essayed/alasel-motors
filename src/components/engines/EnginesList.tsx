@@ -106,7 +106,7 @@ export const EnginesList: React.FC<EnginesListProps> = ({
       e.hasClearanceDoc ? 'نعم' : 'لا',
     ]);
 
-    exportToCsv('مخزن_محركات_الأصيل', headers, rows);
+    exportToCsv('مخزن_محركات_الوكالة', headers, rows);
   };
 
   return (

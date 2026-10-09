@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { LoginView } from './components/auth/LoginView';
 import { Navbar } from './components/layout/Navbar';
@@ -16,6 +17,8 @@ import { TreasuryView } from './components/treasury/TreasuryView';
 import { AnalyticsChartsView } from './components/analytics/AnalyticsChartsView';
 import { AccountsManagementModal } from './components/accounts/AccountsManagementModal';
 import { CloudSyncSettingsModal } from './components/sync/CloudSyncSettingsModal';
+import { DocumentStudioView } from './components/studio/DocumentStudioView';
+import { PastInvoicesArchiveView } from './components/archive/PastInvoicesArchiveView';
 import { db } from './db';
 import { defaultSettings } from './db/seedData';
 import { Engine, SalesInvoice, ShopSettings } from './types';
@@ -51,7 +54,7 @@ const MainApp: React.FC = () => {
     return (
       <div className="min-h-screen bg-zinc-950 text-white flex flex-col items-center justify-center font-sans">
         <div className="w-6 h-6 border-2 border-zinc-500 border-t-white rounded-full animate-spin mb-3" />
-        <p className="text-zinc-400 text-xs">الأصيل موتورز</p>
+        <p className="text-zinc-400 text-xs">الوكالة موتورز</p>
       </div>
     );
   }
@@ -72,7 +75,7 @@ const MainApp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-100/70 text-zinc-900 flex flex-col font-sans selection:bg-zinc-900 selection:text-white">
+    <div className="min-h-screen bg-zinc-100/70 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col font-sans selection:bg-zinc-900 selection:text-white">
       {/* Top Navbar */}
       <Navbar
         onOpenSyncSettings={() => setIsSyncSettingsOpen(true)}
@@ -124,7 +127,11 @@ const MainApp: React.FC = () => {
             />
           )}
 
+          {activeTab === 'studio' && <DocumentStudioView settings={settings} />}
+
           {activeTab === 'sales' && <SalesList settings={settings} />}
+
+          {activeTab === 'archive' && <PastInvoicesArchiveView />}
 
           {activeTab === 'customers' && <CustomersList settings={settings} />}
 
@@ -178,9 +185,11 @@ const MainApp: React.FC = () => {
 
 export function App() {
   return (
-    <AuthProvider>
-      <MainApp />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <MainApp />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

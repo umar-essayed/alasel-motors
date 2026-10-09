@@ -113,7 +113,7 @@ export const CustomersList: React.FC<CustomersListProps> = ({ settings }) => {
       c.totalPaid,
       c.balance,
     ]);
-    exportToCsv('عملاء_الأصيل_موتورز', headers, rows);
+    exportToCsv('عملاء_الوكالة_موتورز', headers, rows);
   };
 
   return (

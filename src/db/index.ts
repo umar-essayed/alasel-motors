@@ -7,10 +7,14 @@ import {
   Customer,
   SalesInvoice,
   SupplierInvoice,
+  SupplierLedgerEntry,
   PaymentReceipt,
   Transaction,
   ShopSettings,
   FirebaseConfig,
+  DocumentImage,
+  SyncOutboxItem,
+  SyncAuditLog,
 } from '../types';
 import { defaultAccounts, defaultSettings } from './seedData';
 
@@ -33,6 +37,10 @@ export class AlAselDatabase extends Dexie {
   payments!: EntityTable<PaymentReceipt, 'id'>;
   transactions!: EntityTable<Transaction, 'id'>;
   appSettings!: EntityTable<AppSettingsRecord, 'id'>;
+  supplierLedger!: EntityTable<SupplierLedgerEntry, 'id'>;
+  documentImages!: EntityTable<DocumentImage, 'id'>;
+  syncOutbox!: EntityTable<SyncOutboxItem, 'id'>;
+  syncAuditLogs!: EntityTable<SyncAuditLog, 'id'>;
 
   constructor() {
     super('AlAselMotorsDB');
@@ -67,23 +75,49 @@ export class AlAselDatabase extends Dexie {
       await tx.table('transactions').clear();
       console.log('Al-Aseel Motors: Database upgraded to v2 — demo data cleared.');
     });
+
+    // Version 3: supplier agenda ledger
+    this.version(3).stores({
+      supplierLedger: 'id, supplierId, type, date, createdAt',
+    });
+
+    // Version 4: document images, real-time sync outbox, and audit logs
+    this.version(4).stores({
+      documentImages: 'id, engineNumber, category, syncStatus, createdAt',
+      syncOutbox: 'id, collection, status, createdAt',
+      syncAuditLogs: 'id, type, status, timestamp',
+    });
   }
 
-  // Seed default data if empty (first install)
+  // Seed default data if empty (first install) or migrate default accounts
   async seedInitialData() {
-    const accountsCount = await this.accounts.count();
-    if (accountsCount === 0) {
+    const existingAccounts = await this.accounts.toArray();
+    // If empty or still has old default accounts, update to the new owners
+    const hasOldAccounts = existingAccounts.some((a) => a.id === 'acc-admin' || a.id === 'acc-cashier');
+    if (existingAccounts.length === 0 || hasOldAccounts) {
+      if (hasOldAccounts) {
+        await this.accounts.where('id').equals('acc-admin').delete();
+        await this.accounts.where('id').equals('acc-cashier').delete();
+      }
       await this.accounts.bulkPut(defaultAccounts as Account[]);
     }
-    const settingsCount = await this.appSettings.count();
-    if (settingsCount === 0) {
+    const settingsRec = await this.appSettings.get('main_settings');
+    if (!settingsRec) {
       await this.appSettings.put({
         id: 'main_settings',
         settings: defaultSettings,
-        cloudSyncEnabled: false,
+        cloudSyncEnabled: true,
       });
+    } else {
+      // Migrate branding name if still old
+      if (settingsRec.settings.shopName === 'الأصيل موتورز') {
+        settingsRec.settings.shopName = 'الوكالة موتورز';
+        settingsRec.settings.invoiceNotice = defaultSettings.invoiceNotice;
+        settingsRec.settings.masterPullPassword = 'OmAr@20$10';
+        await this.appSettings.put(settingsRec);
+      }
     }
-    console.log('Al-Aseel Motors: Production database initialized.');
+    console.log('الوكالة موتورز: Production database initialized.');
   }
 }
 

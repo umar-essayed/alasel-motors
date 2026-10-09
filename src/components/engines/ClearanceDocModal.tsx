@@ -45,7 +45,7 @@ export const ClearanceDocModal: React.FC<ClearanceDocModalProps> = ({
         </head>
         <body>
           <div class="header">
-            <h2>الأصيل موتورز</h2>
+            <h2>الوكالة موتورز</h2>
             <p>صورة أوراق الإفراج والتخليص الجمركي المعتمدة</p>
           </div>
           <div class="meta">

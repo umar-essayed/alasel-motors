@@ -524,16 +524,22 @@ export const PointOfSaleView: React.FC<PointOfSaleViewProps> = ({
 
         {/* Action Buttons */}
         <div className="space-y-2">
-          {/* Quick 1-Click Cash Checkout */}
-          <button
-            type="button"
-            disabled={!selectedEngine || isSubmitting}
-            onClick={() => handleCheckout(true)}
-            className="w-full py-2 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-40 text-white font-semibold text-xs rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-1.5"
-          >
-            <Zap className="w-3.5 h-3.5" />
-            <span>كاش فوري (دفع كامل وطباعة)</span>
-          </button>
+          {/* Quick 1-Click Cash Checkout — only when not credit or partial */}
+          {paymentType === 'cash' && remainingAmount === 0 ? (
+            <button
+              type="button"
+              disabled={!selectedEngine || isSubmitting}
+              onClick={() => handleCheckout(true)}
+              className="w-full py-2 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-40 text-white font-semibold text-xs rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+            >
+              <Zap className="w-3.5 h-3.5" />
+              <span>كاش فوري (دفع كامل وطباعة)</span>
+            </button>
+          ) : (
+            <div className="p-2 bg-amber-50 border border-amber-200 rounded-lg text-amber-800 text-[11px] font-medium text-center">
+              تم اختيار نظام {paymentType === 'credit' ? 'آجل بالكامل' : 'مقدم + متبقي آجل'} — استخدم زر الحفظ أدناه لتسجيل المديونية على العميل
+            </div>
+          )}
 
           {/* Standard Checkout */}
           <button

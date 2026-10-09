@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SalesInvoice, ShopSettings } from '../../types';
 import { Printer, X, Receipt, FileText } from 'lucide-react';
+import { BrandLogo } from '../common/BrandLogo';
 
 interface SaleInvoiceModalProps {
   invoice: SalesInvoice | null;
@@ -84,7 +85,7 @@ export const SaleInvoiceModal: React.FC<SaleInvoiceModalProps> = ({
               className="max-w-[340px] mx-auto text-center font-mono text-xs border border-dashed border-zinc-300 p-4 rounded-xl space-y-3"
             >
               <div className="border-b border-dashed border-zinc-300 pb-3">
-                <img src="/logo.png" alt="" className="w-10 h-10 mx-auto object-contain mb-1" />
+                <BrandLogo className="w-10 h-10 mx-auto object-contain mb-1" />
                 <h2 className="font-bold text-sm text-zinc-900 font-sans">{settings.shopName}</h2>
                 <p className="text-[10px] text-zinc-500 font-sans mt-0.5">مواتير ومحركات سيارات</p>
                 <p className="text-[10px] text-zinc-500 font-mono mt-0.5">
@@ -167,7 +168,7 @@ export const SaleInvoiceModal: React.FC<SaleInvoiceModalProps> = ({
             <div id="printable-area" className="p-4 space-y-5 text-xs">
               <div className="flex justify-between items-start border-b-2 border-zinc-800 pb-4">
                 <div className="flex items-start gap-3">
-                  <img src="/logo.png" alt="" className="w-12 h-12 object-contain" />
+                  <BrandLogo className="w-12 h-12 object-contain" />
                   <div>
                     <h2 className="text-lg font-bold text-zinc-900">{settings.shopName}</h2>
                     <p className="text-zinc-500 text-[11px]">{settings.address}</p>

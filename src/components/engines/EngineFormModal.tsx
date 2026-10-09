@@ -50,6 +50,7 @@ export const EngineFormModal: React.FC<EngineFormModalProps> = ({
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [additionalCost, setAdditionalCost] = useState<number | ''>('');
   const [supplierId, setSupplierId] = useState('');
+  const [purchaseOnCredit, setPurchaseOnCredit] = useState(false);
   const [modelYear, setModelYear] = useState('');
   const [engineCapacity, setEngineCapacity] = useState('');
   const [transmissionType, setTransmissionType] = useState('');
@@ -88,6 +89,7 @@ export const EngineFormModal: React.FC<EngineFormModalProps> = ({
       setSellingPrice(engine.sellingPrice || '');
       setAdditionalCost(engine.additionalCost || '');
       setSupplierId(engine.supplierId || '');
+      setPurchaseOnCredit(engine.purchaseOnCredit || false);
       setModelYear(engine.modelYear || '');
       setEngineCapacity(engine.engineCapacity || '');
       setTransmissionType(engine.transmissionType || '');
@@ -116,6 +118,7 @@ export const EngineFormModal: React.FC<EngineFormModalProps> = ({
       setSellingPrice('');
       setAdditionalCost('');
       setSupplierId('');
+      setPurchaseOnCredit(false);
       setModelYear('');
       setEngineCapacity('');
       setTransmissionType('');
@@ -169,8 +172,14 @@ export const EngineFormModal: React.FC<EngineFormModalProps> = ({
       return;
     }
 
-    if (!costPrice || Number(costPrice) <= 0) {
-      setError('سعر الشراء مطلوب');
+    if (!carModel.trim()) {
+      setError('موديل السيارة مطلوب');
+      return;
+    }
+
+    // Cost price is optional now as requested by user
+    if (costPrice && Number(costPrice) < 0) {
+      setError('سعر الشراء غير صالح');
       return;
     }
 
@@ -246,6 +255,7 @@ export const EngineFormModal: React.FC<EngineFormModalProps> = ({
         status: engine ? engine.status : 'available',
         supplierId: selectedSupplier?.id,
         supplierName: selectedSupplier?.name,
+        purchaseOnCredit: purchaseOnCredit && Boolean(selectedSupplier),
         notes: notes.trim(),
         hasClearanceDoc: hasDoc || (engine?.hasClearanceDoc ?? false),
         clearanceDocId: clearanceDocId || engine?.clearanceDocId,
@@ -259,11 +269,17 @@ export const EngineFormModal: React.FC<EngineFormModalProps> = ({
       } else {
         await db.engines.add(engineData);
 
-        // Update supplier balance if selected for a new engine purchase
-        if (selectedSupplier && Number(costPrice) > 0) {
+        // Update supplier balance ONLY if explicitly purchased on credit (شراء بالأجل)
+        if (selectedSupplier && purchaseOnCredit && Number(costPrice) > 0) {
           await db.suppliers.update(selectedSupplier.id, {
             totalPurchases: selectedSupplier.totalPurchases + Number(costPrice),
             balance: selectedSupplier.balance + Number(costPrice),
+            updatedAt: now,
+          });
+        } else if (selectedSupplier && Number(costPrice) > 0) {
+          // Just record purchase volume without debt
+          await db.suppliers.update(selectedSupplier.id, {
+            totalPurchases: selectedSupplier.totalPurchases + Number(costPrice),
             updatedAt: now,
           });
         }
@@ -367,13 +383,12 @@ export const EngineFormModal: React.FC<EngineFormModalProps> = ({
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-semibold text-zinc-700 mb-1">
-                  سعر الشراء (التكلفة) *
+                  سعر الشراء (الجملة) <span className="text-[11px] font-normal text-zinc-400">(اختياري)</span>
                 </label>
                 <input
                   type="number"
                   min="0"
-                  required
-                  placeholder="0"
+                  placeholder="0 (اختياري)"
                   value={costPrice}
                   onChange={(e) => setCostPrice(e.target.value === '' ? '' : Number(e.target.value))}
                   className="w-full px-3 py-2 bg-zinc-50 border border-zinc-300 rounded-lg text-sm font-mono font-bold text-zinc-900 focus:bg-white focus:outline-none focus:border-zinc-800"
@@ -419,7 +434,7 @@ export const EngineFormModal: React.FC<EngineFormModalProps> = ({
 
             {showAdvanced && (
               <div className="mt-3 space-y-3 pt-2">
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3 items-start">
                   <div>
                     <label className="block text-xs font-semibold text-zinc-700 mb-1">
                       المورد
@@ -436,6 +451,18 @@ export const EngineFormModal: React.FC<EngineFormModalProps> = ({
                         </option>
                       ))}
                     </select>
+
+                    {supplierId && (
+                      <label className="flex items-center gap-2 mt-2 cursor-pointer text-xs font-medium text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200">
+                        <input
+                          type="checkbox"
+                          checked={purchaseOnCredit}
+                          onChange={(e) => setPurchaseOnCredit(e.target.checked)}
+                          className="rounded border-amber-300 text-amber-600 focus:ring-amber-500 w-4 h-4"
+                        />
+                        <span>تسجيل سعر الشراء كـ دين آجل على المحل لصالح المورد</span>
+                      </label>
+                    )}
                   </div>
 
                   <div>

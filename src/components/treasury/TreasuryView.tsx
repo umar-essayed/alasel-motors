@@ -98,7 +98,7 @@ export const TreasuryView: React.FC = () => {
       t.createdBy,
       t.amount,
     ]);
-    exportToCsv('حركات_الخزينة_الأصيل', headers, rows);
+    exportToCsv('حركات_الخزينة_الوكالة', headers, rows);
   };
 
   return (

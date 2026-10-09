@@ -35,3 +35,43 @@ firebase-service-account.json
 .env
 .env.local
 .env.production
+
+# Large raw datasets, documents, and output folders
+*.pdf
+*.xlsx
+*.csv
+مخرجات_الدفتر_الأول_مبيعات_المكن/
+مخرجات_الدفتر_الثاني_إيصالات_المبيعات/
+extraction/
+database/
+engine_system/
+
+# Scratch & Debug files
+scratch_*.py
+debug_*.jpg
+inspect_*.jpg
+rot_*.jpg
+test_*.jpg
+test_*.xlsx
+table_header_sample.jpg
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+
+# Subprojects & large binary assets
+web/node_modules/
+web/dist/
+web/.vercel/
+web/tsconfig.tsbuildinfo
+web/public/doc2_receipt_crops/
+web/public/doc2_slices/
+web/public/doc1_row_strips/
+web/public/doc1_cell_patches/
+web/public/ledger_images/
+web/public/legacy_separated/
+public/doc1_row_strips
+public/doc2_receipt_crops
+
+

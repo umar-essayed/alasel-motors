@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../db';
 import { Supplier, Engine, PaymentReceipt, ShopSettings } from '../../types';
-import { Printer, X, Truck, Phone, MapPin, Receipt, ArrowUpRight } from 'lucide-react';
+import { Printer, X, Truck, Receipt, ArrowUpRight } from 'lucide-react';
 
 interface SupplierStatementModalProps {
   supplier: Supplier | null;

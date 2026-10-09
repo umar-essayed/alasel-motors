@@ -125,7 +125,7 @@ export const CustomerPaymentModal: React.FC<CustomerPaymentModalProps> = ({
         </head>
         <body>
           <div class="header">
-            <h2>محل الأصيل لمواتير ومكن السيارات</h2>
+            <h2>الوكالة موتورز لمواتير ومكن السيارات</h2>
             <p>إيصال استلام نقدية وسداد دفعة آجل</p>
           </div>
           <div class="row">

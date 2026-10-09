@@ -59,6 +59,8 @@ export class BackupService {
         salesInvoices,
         transactions,
         accounts,
+        supplierLedger,
+        documentImages,
         appSettingsRec,
       ] = await Promise.all([
         db.engines.toArray(),
@@ -68,23 +70,28 @@ export class BackupService {
         db.salesInvoices.toArray(),
         db.transactions.toArray(),
         db.accounts.toArray(),
+        db.supplierLedger.toArray(),
+        db.documentImages.toArray(),
         db.appSettings.get('main_settings'),
       ]);
 
       const backupData = {
-        version: 2,
-        shop: 'الأصيل موتورز',
+        version: 3,
+        shop: 'الوكالة موتورز',
         exportedAt: new Date().toISOString(),
         clearanceDocsCount: clearanceDocs.length,
         enginesCount: engines.length,
+        documentImagesCount: documentImages.length,
         data: {
           engines,
-          clearanceDocs, // Contains 100% local images
+          clearanceDocs,
           customers,
           suppliers,
           salesInvoices,
           transactions,
           accounts,
+          supplierLedger,
+          documentImages,
         },
       };
 
@@ -94,7 +101,7 @@ export class BackupService {
       const link = document.createElement('a');
       const dateStr = new Date().toISOString().split('T')[0];
       link.href = url;
-      link.setAttribute('download', `نسخة_احتياطية_الأصيل_موتورز_${dateStr}.json`);
+      link.setAttribute('download', `نسخة_احتياطية_الوكالة_موتورز_${dateStr}.json`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

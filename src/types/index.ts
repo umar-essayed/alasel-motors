@@ -51,6 +51,7 @@ export interface Engine {
   notes?: string;
   hasClearanceDoc: boolean;
   clearanceDocId?: string;
+  purchaseOnCredit?: boolean; // هل تم شراء المكنة بالأجل لتسجيل دين على المورد أم كاش
   createdAt: string;
   updatedAt: string;
   synced?: boolean;
@@ -110,6 +111,13 @@ export interface SalesInvoice {
   returnDate?: string;
   returnReason?: string;
   refundAmount?: number;
+  // تسليم ورق التخليص الجمركي
+  clearanceDelivered?: boolean;
+  clearanceDeliveryDate?: string;
+  clearanceRecipientName?: string;
+  clearanceRecipientPhone?: string;
+  clearanceTrafficDepartment?: string; // وحدة المرور المتوجه إليها
+  clearanceDeliveryNotes?: string;
   createdBy: string;
   createdAt: string;
   synced?: boolean;
@@ -127,6 +135,22 @@ export interface SupplierInvoice {
   enginesDetails: string;
   date: string;
   notes?: string;
+  createdBy: string;
+  createdAt: string;
+  synced?: boolean;
+}
+
+export interface SupplierLedgerEntry {
+  id: string;
+  entryNumber: string;
+  supplierId: string;
+  supplierName: string;
+  type: 'debt' | 'payment' | 'discount'; // debt: دين جديد علينا (له), payment: دفعة مسددة (منه), discount: خصم / تسوية
+  amount: number;
+  date: string;
+  notes: string;
+  paymentMethod?: 'cash' | 'bank' | 'wallet';
+  affectTreasury?: boolean;
   createdBy: string;
   createdAt: string;
   synced?: boolean;
@@ -172,6 +196,57 @@ export interface FirebaseConfig {
   syncCollectionPrefix?: string;
 }
 
+export interface DocumentImage {
+  id: string;
+  engineNumber: string;
+  engineTitle?: string;
+  title: string;
+  category: 'clearance_stamp' | 'clearance_full' | 'engine_photo' | 'invoice_doc' | 'other';
+  fileName: string;
+  mimeType: string;
+  fileSize: number;
+  localDataUrl?: string; // Loaded locally instantly (0ms)
+  r2Url?: string;
+  r2Key?: string;
+  syncStatus: 'synced' | 'pending' | 'failed';
+  errorMessage?: string;
+  capturedAt: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SyncOutboxItem {
+  id: string;
+  collection: 'engines' | 'customers' | 'suppliers' | 'salesInvoices' | 'transactions' | 'supplierLedger' | 'payments' | 'clearanceDocs' | 'documentImages';
+  action: 'upsert' | 'delete';
+  documentId: string;
+  payload: Record<string, unknown>;
+  originalTimestamp: string; // Preserves exact historical date/time even if synced months later
+  attempts: number;
+  lastAttemptAt?: string;
+  status: 'pending' | 'failed';
+  error?: string;
+  createdAt: string;
+}
+
+export interface SyncAuditLog {
+  id: string;
+  type: 'push' | 'pull' | 'image_upload' | 'safety_backup' | 'error';
+  status: 'success' | 'failure';
+  message: string;
+  itemCount: number;
+  details?: string;
+  timestamp: string;
+}
+
+export interface R2Config {
+  bucketName: string;
+  endpoint: string;
+  accessKeyId: string;
+  secretAccessKey: string;
+  publicDomain?: string;
+}
+
 export interface ShopSettings {
   shopName: string;
   shopOwner: string;
@@ -183,4 +258,38 @@ export interface ShopSettings {
   defaultWarranty: string;
   invoiceNotice: string;
   lastBackupDate?: string;
+  masterPullPassword?: string;
+  cloudSyncEnabled?: boolean;
+  lastSyncedAt?: string;
+  firebaseConfig?: FirebaseConfig;
 }
+
+export interface ArchivedInvoice {
+  id: string;
+  sourceDocument: 'doc1_ledger' | 'doc2_receipts' | string;
+  sourceDocumentName: string;
+  pageNumber: number;
+  rowOrPosition: string;
+  engineNumber: string;
+  indicNumber?: string;
+  candidate2?: string;
+  candidate3?: string;
+  customerName: string;
+  merchantName?: string;
+  trafficDepartment?: string;
+  date?: string;
+  phone?: string;
+  notes?: string;
+  isMatchedWithDoc1?: boolean;
+  matchType?: string;
+  matchedDoc1Page?: number;
+  matchedDoc1Row?: number;
+  matchedDoc1Engine?: string;
+  matchedDoc1Customer?: string;
+  matchedDoc1Traffic?: string;
+  cropUrl: string;
+  isConfirmed: boolean;
+  createdAt?: string;
+}
+
+

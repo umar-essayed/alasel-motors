@@ -10,9 +10,11 @@ import {
   Trash2,
   X,
   Download,
+  BookOpen,
 } from 'lucide-react';
 import { SupplierPaymentModal } from './SupplierPaymentModal';
 import { SupplierStatementModal } from './SupplierStatementModal';
+import { SupplierAgendaModal } from './SupplierAgendaModal';
 
 interface SuppliersListProps {
   settings: ShopSettings;
@@ -22,6 +24,7 @@ export const SuppliersList: React.FC<SuppliersListProps> = ({ settings }) => {
   const [search, setSearch] = useState('');
   const [payingSupplier, setPayingSupplier] = useState<Supplier | null>(null);
   const [statementSupplier, setStatementSupplier] = useState<Supplier | null>(null);
+  const [agendaSupplier, setAgendaSupplier] = useState<Supplier | null>(null);
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [editingSupplier, setEditingSupplier] = useState<Supplier | null>(null);
 
@@ -108,7 +111,7 @@ export const SuppliersList: React.FC<SuppliersListProps> = ({ settings }) => {
       s.totalPaid,
       s.balance,
     ]);
-    exportToCsv('موردي_الأصيل_موتورز', headers, rows);
+    exportToCsv('موردي_الوكالة_موتورز', headers, rows);
   };
 
   return (
@@ -199,6 +202,15 @@ export const SuppliersList: React.FC<SuppliersListProps> = ({ settings }) => {
                     </td>
                     <td className="py-2.5 px-4 text-center">
                       <div className="flex items-center justify-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => setAgendaSupplier(s)}
+                          className="flex items-center gap-1 px-2.5 py-1 bg-amber-500 hover:bg-amber-400 text-black rounded text-[11px] font-bold cursor-pointer transition-colors shadow-xs"
+                          title="أجندة الديون والمدفوعات والملاحظات"
+                        >
+                          <BookOpen className="w-3 h-3" />
+                          <span>الأجندة</span>
+                        </button>
                         {hasBalance && (
                           <button
                             type="button"
@@ -264,6 +276,13 @@ export const SuppliersList: React.FC<SuppliersListProps> = ({ settings }) => {
           onClose={() => setStatementSupplier(null)}
         />
       )}
+
+      <SupplierAgendaModal
+        supplier={agendaSupplier}
+        settings={settings}
+        isOpen={Boolean(agendaSupplier)}
+        onClose={() => setAgendaSupplier(null)}
+      />
 
       {isAddOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-3">
