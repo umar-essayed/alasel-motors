@@ -39,13 +39,11 @@ export const VisualCropModal: React.FC<VisualCropModalProps> = ({
   hasPrev,
   hasNext,
 }) => {
-  if (!record) return null;
-
   const [zoom, setZoom] = useState(1);
-  const [engineInput, setEngineInput] = useState(record.engineNumber || '');
-  const [customerInput, setCustomerInput] = useState(record.customerName || '');
-  const [trafficInput, setTrafficInput] = useState(record.trafficDepartment || '');
-  const [dateInput, setDateInput] = useState(record.date || '');
+  const [engineInput, setEngineInput] = useState(record?.engineNumber || '');
+  const [customerInput, setCustomerInput] = useState(record?.customerName || '');
+  const [trafficInput, setTrafficInput] = useState(record?.trafficDepartment || '');
+  const [dateInput, setDateInput] = useState(record?.date || '');
   const [saveSuccess, setSaveSuccess] = useState(false);
 
   // Speech Recognition State
@@ -54,8 +52,15 @@ export const VisualCropModal: React.FC<VisualCropModalProps> = ({
   const [voiceFeedback, setVoiceFeedback] = useState<string | null>(null);
   const recognitionRef = useRef<any>(null);
 
+  // MediaRecorder references for 100% reliable local transcription
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+  const streamRef = useRef<MediaStream | null>(null);
+  const [isProcessingVoice, setIsProcessingVoice] = useState(false);
+
   // Sync state when record changes
   useEffect(() => {
+    if (!record) return;
     setEngineInput(record.engineNumber || '');
     setCustomerInput(record.customerName || '');
     setTrafficInput(record.trafficDepartment || '');
@@ -64,7 +69,9 @@ export const VisualCropModal: React.FC<VisualCropModalProps> = ({
     setSaveSuccess(false);
     setVoiceTranscript('');
     setVoiceFeedback(null);
-  }, [record.id]);
+  }, [record?.id]);
+
+  if (!record) return null;
 
   // User confirmed the number is correct -> Clears alternate candidates 2 & 3
   const handleConfirmAndClearAlternates = (autoAdvance: boolean = false) => {
@@ -116,12 +123,6 @@ export const VisualCropModal: React.FC<VisualCropModalProps> = ({
     setSaveSuccess(true);
     setTimeout(() => setSaveSuccess(false), 2000);
   };
-
-  // MediaRecorder references for 100% reliable local transcription
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
-  const streamRef = useRef<MediaStream | null>(null);
-  const [isProcessingVoice, setIsProcessingVoice] = useState(false);
 
   // Apply parsed voice intent to fields
   const applyVoiceIntent = (parsed: VoiceParsedIntent) => {
