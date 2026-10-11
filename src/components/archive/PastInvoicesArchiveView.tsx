@@ -58,11 +58,25 @@ export const PastInvoicesArchiveView: React.FC = () => {
     const fetchDatabase = async () => {
       try {
         setIsLoading(true);
-        const res = await fetch('/archived_invoices_database.json');
-        if (!res.ok) {
-          throw new Error(`تعذر تحميل قاعدة البيانات (${res.status})`);
+        let data: ArchivedInvoice[] | null = null;
+        try {
+          // 1. Primary: Bundled ES module import (zero network requests, works in Electron file:// protocol)
+          const mod = await import('../../data/archived_invoices_database.json');
+          data = (mod.default || mod) as ArchivedInvoice[];
+        } catch (importErr) {
+          console.warn('Bundled import failed, trying fetch fallback:', importErr);
+          const res = await fetch('./archived_invoices_database.json').catch(() =>
+            fetch('/archived_invoices_database.json')
+          );
+          if (!res.ok) {
+            throw new Error(`تعذر تحميل قاعدة البيانات (${res.status})`);
+          }
+          data = await res.json();
         }
-        const data: ArchivedInvoice[] = await res.json();
+
+        if (!data || !Array.isArray(data)) {
+          throw new Error('بيانات الأرشيف غير صالحة');
+        }
 
         // Load overrides from localStorage
         let localOverrides: Record<string, Partial<ArchivedInvoice>> = {};

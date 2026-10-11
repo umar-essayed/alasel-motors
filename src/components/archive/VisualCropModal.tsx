@@ -58,6 +58,8 @@ export const VisualCropModal: React.FC<VisualCropModalProps> = ({
   const streamRef = useRef<MediaStream | null>(null);
   const [isProcessingVoice, setIsProcessingVoice] = useState(false);
 
+  const [imageError, setImageError] = useState(false);
+
   // Sync state when record changes
   useEffect(() => {
     if (!record) return;
@@ -66,6 +68,7 @@ export const VisualCropModal: React.FC<VisualCropModalProps> = ({
     setTrafficInput(record.trafficDepartment || '');
     setDateInput(record.date || '');
     setZoom(1);
+    setImageError(false);
     setSaveSuccess(false);
     setVoiceTranscript('');
     setVoiceFeedback(null);
@@ -404,16 +407,29 @@ export const VisualCropModal: React.FC<VisualCropModalProps> = ({
 
             {/* High-Resolution Strip Canvas Container */}
             <div className="overflow-auto max-h-[340px] min-h-[160px] rounded-lg bg-zinc-200/60 dark:bg-black flex items-center justify-center p-3 border border-zinc-300 dark:border-zinc-800">
-              <img
-                src={record.cropUrl}
-                alt={`قصاصة السطر ${record.id}`}
-                style={{
-                  transform: `scale(${zoom})`,
-                  transformOrigin: 'top center',
-                  transition: 'transform 0.12s ease-out',
-                }}
-                className="max-w-full object-contain rounded shadow-md border border-zinc-300 dark:border-zinc-800"
-              />
+              {!imageError && record.cropUrl ? (
+                <img
+                  src={record.cropUrl}
+                  alt={`قصاصة السطر ${record.id}`}
+                  onError={() => setImageError(true)}
+                  style={{
+                    transform: `scale(${zoom})`,
+                    transformOrigin: 'top center',
+                    transition: 'transform 0.12s ease-out',
+                  }}
+                  className="max-w-full object-contain rounded shadow-md border border-zinc-300 dark:border-zinc-800"
+                />
+              ) : (
+                <div className="text-center py-6 px-4">
+                  <FileText className="w-8 h-8 text-zinc-400 mx-auto mb-2 opacity-60" />
+                  <p className="text-xs font-bold text-zinc-600 dark:text-zinc-300">
+                    قصاصة الصورة الأصلية غير متوفرة محلياً على هذا الجهاز
+                  </p>
+                  <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1">
+                    يمكنك تدقيق وتعديل بيانات السجل الكاملة مباشرة من الحقول أدناه أو بالصوت
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 

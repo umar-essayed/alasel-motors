@@ -133,11 +133,15 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: alasel-motors-windows
-          path: release/*.exe
+          path: |
+            release/*.exe
+            release/*.zip
           retention-days: 30
 
       - name: Upload to release (if release event)
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          files: release/*.exe
+          files: |
+            release/*.exe
+            release/*.zip

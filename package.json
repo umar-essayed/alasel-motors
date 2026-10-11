@@ -1,7 +1,7 @@
 {
   "name": "alasel-motors",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "الوكالة موتورز — نظام إدارة محركات السيارات والمواتير",
   "author": {
     "name": "El-Wikalla Motors",
@@ -93,6 +93,18 @@
       "target": [
         {
           "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
           "arch": [
             "x64"
           ]

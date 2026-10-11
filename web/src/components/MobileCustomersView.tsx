@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Customer } from '../types';
-import { Search, User, Phone, MapPin, Wallet, AlertCircle } from 'lucide-react';
+import { Search, Phone, MapPin, Wallet, AlertCircle } from 'lucide-react';
 import { saveCustomerRemote } from '../services/firebaseClient';
 
 interface MobileCustomersViewProps {
