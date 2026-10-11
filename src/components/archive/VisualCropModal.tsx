@@ -74,8 +74,6 @@ export const VisualCropModal: React.FC<VisualCropModalProps> = ({
     setVoiceFeedback(null);
   }, [record?.id]);
 
-  if (!record) return null;
-
   // User confirmed the number is correct -> Clears alternate candidates 2 & 3
   const handleConfirmAndClearAlternates = (autoAdvance: boolean = false) => {
     const updated: ArchivedInvoice = {
@@ -294,6 +292,8 @@ export const VisualCropModal: React.FC<VisualCropModalProps> = ({
       }
     };
   }, [onClose, onNavigateNext, onNavigatePrev, hasNext, hasPrev, engineInput, customerInput, trafficInput, dateInput]);
+
+  if (!record) return null;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-150">
