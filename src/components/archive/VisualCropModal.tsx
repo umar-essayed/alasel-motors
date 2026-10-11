@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 
 interface VisualCropModalProps {
-  record: ArchivedInvoice | null;
+  record: ArchivedInvoice;
   onClose: () => void;
   onUpdateRecord: (updated: ArchivedInvoice) => void;
   onNavigatePrev?: () => void;
@@ -292,8 +292,6 @@ export const VisualCropModal: React.FC<VisualCropModalProps> = ({
       }
     };
   }, [onClose, onNavigateNext, onNavigatePrev, hasNext, hasPrev, engineInput, customerInput, trafficInput, dateInput]);
-
-  if (!record) return null;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-150">
