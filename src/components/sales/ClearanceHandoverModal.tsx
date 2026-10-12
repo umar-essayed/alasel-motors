@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { db } from '../../db';
 import { SalesInvoice } from '../../types';
-import { X, CheckCircle, FileText, User, Phone, MapPin } from 'lucide-react';
+import { X, CheckCircle, FileText, User, Phone, MapPin, AlertTriangle, Clock } from 'lucide-react';
 
 interface ClearanceHandoverModalProps {
   invoice: SalesInvoice | null;
@@ -31,6 +31,17 @@ const ClearanceHandoverDialog: React.FC<{
   const [notes, setNotes] = useState(invoice.clearanceDeliveryNotes || '');
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState('');
+
+  const getDaysElapsed = (dateStr?: string, createdAtStr?: string): number => {
+    const raw = dateStr || createdAtStr;
+    if (!raw) return 0;
+    const t = new Date(raw).getTime();
+    if (isNaN(t)) return 0;
+    return Math.max(0, Math.floor((Date.now() - t) / (1000 * 60 * 60 * 24)));
+  };
+
+  const daysElapsed = getDaysElapsed(invoice.date, invoice.createdAt);
+  const isDelayed = !invoice.clearanceDelivered && daysElapsed >= 30;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,6 +94,19 @@ const ClearanceHandoverDialog: React.FC<{
           {error && (
             <div className="p-2.5 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 rounded-lg text-rose-700 dark:text-rose-400">
               {error}
+            </div>
+          )}
+
+          {/* Overdue Warning Banner */}
+          {isDelayed && (
+            <div className="p-3 bg-amber-500/10 dark:bg-amber-950/30 border border-amber-500/30 dark:border-amber-500/20 rounded-xl flex items-start gap-2.5 text-amber-900 dark:text-amber-200">
+              <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5 animate-pulse" />
+              <div>
+                <p className="font-bold text-xs">تنبيه: تأخر تسليم الورق ({daysElapsed} يوماً منذ الفاتورة)</p>
+                <p className="text-[11px] text-amber-800/80 dark:text-amber-300/80 mt-0.5">
+                  مضى أكثر من شهر كامل على تاريخ البيع ({invoice.date}) ولم يستلم المشتري أوراق الإفراج الجمركي حتى الآن.
+                </p>
+              </div>
             </div>
           )}
 

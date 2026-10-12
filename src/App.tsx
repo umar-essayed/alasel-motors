@@ -41,6 +41,18 @@ const MainApp: React.FC = () => {
 
   const availableEngines = useLiveQuery(() => db.engines.where('status').equals('available').toArray()) || [];
   const customersWithDebt = useLiveQuery(() => db.customers.filter((c) => c.balance > 0).toArray()) || [];
+  const delayedPapersCount = useLiveQuery(() =>
+    db.salesInvoices
+      .filter((s) => {
+        if (s.status === 'returned' || s.clearanceDelivered) return false;
+        const raw = s.date || s.createdAt;
+        if (!raw) return false;
+        const t = new Date(raw).getTime();
+        if (isNaN(t)) return false;
+        return Math.floor((Date.now() - t) / (1000 * 60 * 60 * 24)) >= 30;
+      })
+      .count()
+  ) || 0;
 
   useEffect(() => {
     db.appSettings.get('main_settings').then((rec) => {
@@ -101,6 +113,7 @@ const MainApp: React.FC = () => {
           }}
           availableEnginesCount={availableEngines.length}
           unpaidCustomersCount={customersWithDebt.length}
+          delayedPapersCount={delayedPapersCount}
           onOpenAccountsModal={() => setIsAccountsModalOpen(true)}
         />
 

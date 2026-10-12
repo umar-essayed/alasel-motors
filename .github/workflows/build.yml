@@ -84,14 +84,6 @@ jobs:
             release/*.deb
           retention-days: 30
 
-      - name: Upload to release (if release event)
-        if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            release/*.AppImage
-            release/*.deb
-
   # ─── Build Windows ───────────────────────────────────────────────────────────
   build-windows:
     name: Build Windows (NSIS Installer)
@@ -138,10 +130,58 @@ jobs:
             release/*.zip
           retention-days: 30
 
-      - name: Upload to release (if release event)
-        if: github.event_name == 'release'
+  # ─── Automated Release Publisher ─────────────────────────────────────────────
+  publish-release:
+    name: Publish GitHub Release
+    needs: [build-linux, build-windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read version from package.json
+        id: pkg_version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create release files directory
+        run: mkdir -p dist_release
+
+      - name: Download Linux artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: alasel-motors-linux
+          path: dist_release
+
+      - name: Download Windows artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: alasel-motors-windows
+          path: dist_release
+
+      - name: List downloaded release assets
+        run: ls -lh dist_release
+
+      - name: Publish or Update GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.pkg_version.outputs.tag }}
+          name: "الوكالة موتورز ${{ steps.pkg_version.outputs.tag }} — تحديث منظومة الفواتير وتنبيهات أوراق الإفراج"
+          body: |
+            ### 🚀 إصدار رسمي جديد: الوكالة موتورز ${{ steps.pkg_version.outputs.tag }}
+
+            #### ✨ أهم التحديثات في هذا الإصدار:
+            - **تنبيه تسليم أوراق الإفراج الجمركي (+30 يوماً):** شريط تنبيه وبادجات ذكية وفلاتر سريعة للعملاء الذين مضى على فواتيرهم أكثر من شهر دون استلام الورق.
+            - **دعم متكامل للوضعين الداكن والفاتح** في صفحة الفواتير وكافة شاشات النظام.
+            - **تضمين أرشيف الفواتير الموحد** (1,834 سجل ومحرك) مدمجاً ومحملاً ذاتياً في التطبيق 100% دون أخطاء شبكة.
+            - **حزم ويندوز متعددة:** مثبت نظام Setup + نسخة محمولة Portable تعمل فوراً دون تثبيت + حزمة مضغوطة ZIP.
+            - **حزم لينكس:** AppImage و deb.
+          draft: false
+          prerelease: false
           files: |
-            release/*.exe
-            release/*.zip
+            dist_release/*

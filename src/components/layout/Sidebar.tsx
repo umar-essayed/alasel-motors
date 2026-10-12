@@ -32,6 +32,7 @@ interface SidebarProps {
   setActiveTab: (tab: TabType) => void;
   availableEnginesCount: number;
   unpaidCustomersCount: number;
+  delayedPapersCount?: number;
   onOpenAccountsModal: () => void;
 }
 
@@ -40,6 +41,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   setActiveTab,
   availableEnginesCount,
   unpaidCustomersCount,
+  delayedPapersCount = 0,
   onOpenAccountsModal,
 }) => {
   const navItems = [
@@ -68,6 +70,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
       id: 'sales' as TabType,
       label: 'فواتير البيع والمرتجعات',
       icon: Receipt,
+      badge: delayedPapersCount > 0 ? `${delayedPapersCount} متأخر` : undefined,
+      badgeColor: 'bg-rose-600 text-white animate-pulse',
     },
     {
       id: 'archive' as TabType,
@@ -127,8 +131,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
               {item.badge && (
                 <span
-                  className={`text-[11px] font-mono px-2 py-0.5 rounded-md font-bold ${
-                    isActive
+                  className={`text-[10px] font-mono px-2 py-0.5 rounded-md font-bold ${
+                    (item as any).badgeColor
+                      ? (item as any).badgeColor
+                      : isActive
                       ? 'bg-zinc-800 dark:bg-zinc-700 text-zinc-200'
                       : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'
                   }`}
